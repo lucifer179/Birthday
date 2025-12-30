@@ -19,7 +19,7 @@ body {
 .card {
     background: white;
     width: 90%;
-    max-width: 360px;
+    max-width: 400px;
     padding: 25px;
     border-radius: 25px;
     text-align: center;
@@ -68,6 +68,20 @@ video {
     font-size: 14px;
     color: gray;
 }
+
+.gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.video-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
 </style>
 </head>
 
@@ -92,20 +106,28 @@ video {
     </p>
 
     <p id="m4" class="hidden">
-        When you dance ,<br>
+        When you dance,<br>
         the beat listens to *you* —<br>
         powerful moves, fearless vibe, pure fire 🔥💃
     </p>
 
     <div id="heart" class="heart hidden">💖</div>
 
-    <!-- IMAGE (Replace with her photo) -->
-    <img id="img" class="hidden"
-         src="https://images.unsplash.com/photo-1517841905240-472988babdf9">
+    <!-- FIRST IMAGE -->
+    <img id="img1" class="hidden" src="IMG_2247.jpeg" alt="Birthday Photo 1">
 
-    <!-- VIDEO (Replace with her dance video) -->
-    <video id="vid" class="hidden" controls>
-        <source src="dance.mp4" type="video/mp4">
+    <!-- SECOND IMAGE -->
+    <img id="img2" class="hidden" src="IMG_2808.jpeg" alt="Birthday Photo 2">
+
+    <!-- FIRST VIDEO -->
+    <video id="vid1" class="hidden" controls>
+        <source src="688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- SECOND VIDEO -->
+    <video id="vid2" class="hidden" controls>
+        <source src="9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -136,10 +158,12 @@ function nextStep() {
     if (step === 4) m3.classList.remove("hidden");
     if (step === 5) m4.classList.remove("hidden");
     if (step === 6) heart.classList.remove("hidden");
-    if (step === 7) img.classList.remove("hidden");
-    if (step === 8) vid.classList.remove("hidden");
-    if (step === 9) m5.classList.remove("hidden");
-    if (step === 10) m6.classList.remove("hidden");
+    if (step === 7) img1.classList.remove("hidden");
+    if (step === 8) img2.classList.remove("hidden");
+    if (step === 9) vid1.classList.remove("hidden");
+    if (step === 10) vid2.classList.remove("hidden");
+    if (step === 11) m5.classList.remove("hidden");
+    if (step === 12) m6.classList.remove("hidden");
 }
 </script>
 
