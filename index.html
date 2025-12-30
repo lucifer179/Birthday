@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Theju's Special Day 💫</title>
+    <title>Happy Birthday Theju! 💫</title>
     <style>
-        :root {
-            --soft-pink: #fff5f7;
-            --warm-pink: #ffb8c6;
-            --gentle-text: #5a5a5a;
-            --accent-color: #ff6b93;
-            --gold: #ffd700;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -20,277 +12,110 @@
         }
 
         body {
-            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
-            color: white;
         }
 
-        /* Slideshow container */
-        .slideshow-container {
+        .container {
             width: 100%;
-            min-height: 100vh;
+            height: 100vh;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Each slide */
         .slide {
             position: absolute;
             width: 90%;
-            max-width: 600px;
+            max-width: 500px;
             padding: 40px 30px;
-            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
-                        0 0 0 1px rgba(255,107,147,0.1);
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            pointer-events: none;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+            display: none;
         }
 
         .slide.active {
             opacity: 1;
             transform: translateY(0);
-            pointer-events: all;
-            z-index: 2;
+            display: block;
         }
 
-        .slide.previous {
-            opacity: 0;
-            transform: translateY(-50px);
-            pointer-events: none;
-        }
-
-        /* Slide content styling */
-        .slide-title {
+        .title {
             color: #ff6b93;
             font-size: 2.2rem;
-            margin-bottom: 25px;
-            font-weight: 700;
-            text-align: center;
-            width: 100%;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
 
-        .slide-message {
+        .message {
             font-size: 1.2rem;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.9);
-            padding: 25px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
+            line-height: 1.6;
+            color: #333;
             margin: 20px 0;
-            width: 100%;
-            text-align: center;
-            border-left: 4px solid #ff6b93;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            padding: 20px;
+            background: #fff5f7;
+            border-radius: 15px;
+            border-left: 5px solid #ff6b93;
         }
 
-        /* Media containers */
+        .dance-message {
+            background: #fff;
+            border-left: 5px solid #ff4757;
+            font-style: italic;
+        }
+
         .media-container {
             width: 100%;
-            max-height: 350px;
+            margin: 20px 0;
             border-radius: 15px;
             overflow: hidden;
-            margin: 20px 0;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            border: 2px solid rgba(255,107,147,0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        .slide-media {
+        .media-container img,
+        .media-container video {
             width: 100%;
-            height: 100%;
+            height: 300px;
             object-fit: cover;
             display: block;
         }
 
-        video.slide-media {
-            background: #000;
-        }
-
-        /* Interactive Teddy Bear */
-        .teddy-container {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 80px;
-            height: 120px;
-            z-index: 1000;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .teddy-container:hover {
-            transform: scale(1.1);
-        }
-
-        .teddy {
-            width: 60px;
-            height: 90px;
-            background: linear-gradient(45deg, #8B4513, #A0522D);
-            border-radius: 40% 40% 45% 45%;
-            position: absolute;
-            top: 0;
-            left: 10px;
-            animation: teddyFloat 4s infinite ease-in-out;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            z-index: 2;
-        }
-
-        .teddy-ear {
-            width: 25px;
-            height: 25px;
-            background: linear-gradient(45deg, #8B4513, #A0522D);
-            border-radius: 50%;
-            position: absolute;
-            top: -10px;
-        }
-
-        .teddy-ear.left {
-            left: 5px;
-            transform: rotate(-15deg);
-        }
-
-        .teddy-ear.right {
-            right: 5px;
-            transform: rotate(15deg);
-        }
-
-        .teddy-eye {
-            width: 10px;
-            height: 10px;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 30px;
-            border: 2px solid #333;
-        }
-
-        .teddy-eye.left {
-            left: 15px;
-        }
-
-        .teddy-eye.right {
-            right: 15px;
-        }
-
-        .teddy-nose {
-            width: 12px;
-            height: 8px;
-            background: black;
-            border-radius: 50%;
-            position: absolute;
-            top: 45px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .teddy-heart {
-            position: absolute;
-            top: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 20px;
-            color: #ff6b93;
-            animation: heartFloat 2s infinite;
-            z-index: 3;
-        }
-
-        @keyframes teddyFloat {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-15px) rotate(5deg); }
-        }
-
-        @keyframes heartFloat {
-            0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
-            50% { transform: translateX(-50%) translateY(-8px) scale(1.2); }
-        }
-
-        /* Dance Description */
-        .dance-description {
-            background: linear-gradient(135deg, rgba(255,107,147,0.1), rgba(255,255,255,0.05));
-            border-left: 4px solid #ff6b93;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 20px 0;
-            font-style: italic;
-            color: white;
-            text-align: center;
-            width: 100%;
-        }
-
-        /* Cake Animation */
         .cake-container {
-            position: relative;
             width: 200px;
             height: 200px;
-            margin: 25px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 30px auto;
+            position: relative;
         }
 
         .cake {
             width: 150px;
             height: 80px;
-            background: #f8c8dc;
+            background: #ffb8c6;
+            border-radius: 10px 10px 0 0;
             position: absolute;
             bottom: 50px;
-            border-radius: 10px 10px 0 0;
-            z-index: 2;
-        }
-
-        .cake-layer {
-            position: absolute;
-            width: 100%;
-            height: 25px;
-            background: pink;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .cake-layer.top {
-            top: 0;
-            background: #ffb8c6;
-        }
-
-        .cake-layer.middle {
-            top: 25px;
-        }
-
-        .cake-layer.bottom {
-            top: 50px;
-            background: #ff8fab;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .candle {
             width: 6px;
             height: 30px;
             background: white;
+            border-radius: 3px;
             position: absolute;
             top: -30px;
-            border-radius: 3px;
         }
 
         .flame {
@@ -302,7 +127,7 @@
             top: -55px;
             left: 50%;
             transform: translateX(-50%);
-            animation: flicker 0.5s infinite alternate;
+            animation: flicker 0.8s infinite alternate;
             box-shadow: 0 0 20px gold;
         }
 
@@ -311,337 +136,262 @@
             100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
         }
 
-        /* Navigation */
-        .navigation {
-            position: fixed;
-            bottom: 30px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            z-index: 10;
+        .blow-btn {
+            background: linear-gradient(45deg, #ff6b93, #ff8fab);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.3s;
         }
 
-        .nav-text {
-            color: #ff6b93;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-bottom: 10px;
+        .blow-btn:hover {
+            transform: scale(1.05);
         }
 
-        .nav-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 107, 147, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: #ff6b93;
-            transform: scale(1.2);
-        }
-
-        /* Progress indicator */
-        .progress-bar {
-            width: 200px;
-            height: 3px;
-            background: rgba(255, 107, 147, 0.2);
-            border-radius: 10px;
-            margin: 15px auto;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #ff6b93;
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-
-        /* Click indicator */
-        .click-indicator {
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #ff6b93;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            animation: pulse 2s infinite;
-            z-index: 5;
-            background: rgba(255,255,255,0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* Final message styling */
         .final-message {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: #ff6b93;
             margin: 30px 0;
             text-align: center;
             animation: pulse 2s infinite;
         }
 
-        .birthday-partner {
-            font-size: 2.5rem;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .partner-text {
+            font-size: 3rem;
             color: gold;
-            margin: 20px 0;
-            text-align: center;
+            margin: 30px 0;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
             animation: glow 1.5s infinite alternate;
         }
 
         @keyframes glow {
-            from { text-shadow: 0 0 10px gold; }
-            to { text-shadow: 0 0 20px gold, 0 0 30px gold; }
+            from { text-shadow: 0 0 20px gold; }
+            to { text-shadow: 0 0 30px gold, 0 0 40px gold; }
         }
 
-        /* Button styling */
-        .blow-button {
-            padding: 15px 30px;
-            background: linear-gradient(45deg, #ff6b93, #ff8fab);
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .nav-text {
             color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: transform 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255,107,147,0.3);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
 
-        .blow-button:hover {
-            transform: scale(1.05);
+        .nav-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        /* Responsive */
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .heart {
+            font-size: 40px;
+            margin: 20px 0;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .tap-hint {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+
         @media (max-width: 600px) {
             .slide {
                 width: 95%;
-                padding: 25px 20px;
+                padding: 30px 20px;
             }
             
-            .slide-title {
+            .title {
                 font-size: 1.8rem;
             }
             
-            .slide-message {
+            .message {
                 font-size: 1.1rem;
-                padding: 20px;
-            }
-            
-            .media-container {
-                max-height: 250px;
-            }
-            
-            .teddy-container {
-                bottom: 80px;
-                right: 20px;
-                width: 60px;
-                height: 90px;
-            }
-            
-            .teddy {
-                width: 45px;
-                height: 70px;
             }
             
             .final-message {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
             
-            .birthday-partner {
-                font-size: 2rem;
+            .partner-text {
+                font-size: 2.2rem;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Hidden Media Elements -->
-    <img id="img1" class="hidden" src="IMG_2247.jpeg" alt="Birthday Photo 1">
-    <img id="img2" class="hidden" src="IMG_2808.jpeg" alt="Birthday Photo 2">
-    <video id="vid1" class="hidden" controls>
-        <source src="688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4" type="video/mp4">
-    </video>
-    <video id="vid2" class="hidden" controls>
-        <source src="9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4" type="video/mp4">
-    </video>
+    <div class="container">
+        <!-- Slide 1: Title -->
+        <div class="slide active" id="slide1">
+            <h1 class="title">For Theju's Special Day ✨</h1>
+            <div class="message">
+                A beautiful journey created just for your birthday...
+            </div>
+            <div class="heart">💫</div>
+        </div>
 
-    <!-- Interactive Teddy Bear -->
-    <div class="teddy-container" id="teddyContainer">
-        <div class="teddy">
-            <div class="teddy-ear left"></div>
-            <div class="teddy-ear right"></div>
-            <div class="teddy-eye left"></div>
-            <div class="teddy-eye right"></div>
-            <div class="teddy-nose"></div>
-            <div class="teddy-heart">💖</div>
+        <!-- Slide 2: Message -->
+        <div class="slide" id="slide2">
+            <div class="message">
+                Seeing you celebrate today reminded me of something beautiful...<br><br>
+                Happiness looks absolutely stunning on you.
+            </div>
+            <div class="heart">🌸</div>
         </div>
-        <div class="nav-text" style="position: absolute; bottom: -25px; width: 100px; font-size: 0.8rem; text-align: center;">
-            Tap Teddy
-        </div>
-    </div>
 
-    <!-- Navigation -->
-    <div class="navigation">
-        <div class="nav-text">Tap anywhere to continue</div>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="nav-dots" id="navDots"></div>
-    </div>
-
-    <!-- Click indicator -->
-    <div class="click-indicator" id="clickIndicator">
-        <span>▼</span> Tap to continue
-    </div>
-
-    <!-- SLIDE 1: Title -->
-    <div class="slide active" id="slide1">
-        <h1 class="slide-title">For Theju's Special Day ✨</h1>
-        <div class="slide-message">
-            A beautiful journey created just for your birthday...
-        </div>
-        <div style="font-size: 50px; margin-top: 20px;">💫</div>
-    </div>
-
-    <!-- SLIDE 2: Message 1 -->
-    <div class="slide" id="slide2">
-        <div class="slide-message">
-            Seeing you celebrate today reminded me of something beautiful...
-        </div>
-        <div style="margin-top: 20px; color: #ff6b93; font-style: italic; font-size: 1.3rem; text-align: center;">
-            Happiness looks absolutely stunning on you.
-        </div>
-    </div>
-
-    <!-- SLIDE 3: Dance Description -->
-    <div class="slide" id="slide3">
-        <h2 class="slide-title">Your Incredible Dance 💃</h2>
-        <div class="dance-description">
-            When you dance it's beautiful to watch. Each and Every move you do is full of fire and passion 🔥. You have a great control on your moves which is not easy for everyone. Your grace and energy on the dance floor is absolutely mesmerizing!
-        </div>
-    </div>
-
-    <!-- SLIDE 4: Photo 1 -->
-    <div class="slide" id="slide4">
-        <h2 class="slide-title">A Beautiful Moment 🌸</h2>
-        <div class="media-container">
-            <img class="slide-media" id="displayImg1" alt="Theju's beautiful moment" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"400\" height=\"300\" viewBox=\"0 0 400 300\"><rect width=\"400\" height=\"300\" fill=\"%23ff6b93\" opacity=\"0.1\"/><text x=\"200\" y=\"150\" text-anchor=\"middle\" fill=\"%23ff6b93\" font-size=\"20\">Photo 1</text></svg>'">
-        </div>
-        <div style="font-style: italic; color: #ff6b93; margin-top: 15px; text-align: center;">
-            Your beautiful smile lights up everything
-        </div>
-    </div>
-
-    <!-- SLIDE 5: Message 2 -->
-    <div class="slide" id="slide5">
-        <div class="slide-message">
-            There's a genuine light that comes from you when you're happy.<br><br>
-            It's not something you put on — it's just you being authentically you.
-        </div>
-        <div style="font-size: 40px; margin: 20px 0;">✨</div>
-    </div>
-
-    <!-- SLIDE 6: Photo 2 -->
-    <div class="slide" id="slide6">
-        <h2 class="slide-title">Another Special Moment 🌷</h2>
-        <div class="media-container">
-            <img class="slide-media" id="displayImg2" alt="Another special moment" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"400\" height=\"300\" viewBox=\"0 0 400 300\"><rect width=\"400\" height=\"300\" fill=\"%23ff6b93\" opacity=\"0.1\"/><text x=\"200\" y=\"150\" text-anchor=\"middle\" fill=\"%23ff6b93\" font-size=\"20\">Photo 2</text></svg>'">
-        </div>
-        <div style="font-style: italic; color: #ff6b93; margin-top: 15px; text-align: center;">
-            Moments worth cherishing forever
-        </div>
-    </div>
-
-    <!-- SLIDE 7: Video 1 -->
-    <div class="slide" id="slide7">
-        <h2 class="slide-title">🎥 Your Special Video Moment</h2>
-        <div class="media-container">
-            <video class="slide-media" id="displayVid1" controls playsinline>
-                <source src="688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        <div style="margin-top: 15px; color: #ff8fab; font-size: 0.9rem; text-align: center;">
-            Tap to play your special memory
-        </div>
-    </div>
-
-    <!-- SLIDE 8: Video 2 -->
-    <div class="slide" id="slide8">
-        <h2 class="slide-title">🎬 Another Beautiful Memory</h2>
-        <div class="media-container">
-            <video class="slide-media" id="displayVid2" controls playsinline>
-                <source src="9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        <div style="margin-top: 15px; color: #ff8fab; font-size: 0.9rem; text-align: center;">
-            Another precious moment captured
-        </div>
-    </div>
-
-    <!-- SLIDE 9: Birthday Cake -->
-    <div class="slide" id="slide9">
-        <h2 class="slide-title">Make a Wish! 🎂</h2>
-        <div class="cake-container">
-            <div class="cake">
-                <div class="cake-layer top"></div>
-                <div class="cake-layer middle"></div>
-                <div class="cake-layer bottom"></div>
-                <div class="candle" style="left: 30px;"></div>
-                <div class="candle" style="left: 60px;"></div>
-                <div class="candle" style="left: 90px;"></div>
-                <div class="candle" style="left: 120px;"></div>
-                <div class="flame" id="cakeFlame"></div>
+        <!-- Slide 3: Dance Description -->
+        <div class="slide" id="slide3">
+            <h2 class="title">Your Incredible Dance 💃</h2>
+            <div class="message dance-message">
+                When you dance it's beautiful to watch. Each and Every move you do is full of fire and passion 🔥. You have a great control on your moves which is not easy for everyone.
             </div>
         </div>
-        <div class="slide-message">
-            Close your eyes, make a wish, and blow out the candles!<br>
-            <button class="blow-button" id="blowButton">
-                🎂 Blow the Candles 🎂
-            </button>
-        </div>
-    </div>
 
-    <!-- SLIDE 10: Final Birthday Message -->
-    <div class="slide" id="slide10">
-        <div class="final-message">🎉 Happy Birthday Theju! 🎉</div>
-        <div class="slide-message">
-            May this year bring you all the happiness, success, and beautiful moments you deserve.
+        <!-- Slide 4: Photo 1 -->
+        <div class="slide" id="slide4">
+            <h2 class="title">A Beautiful Moment 🌸</h2>
+            <div class="media-container">
+                <img id="photo1" src="IMG_2247.jpeg" alt="Theju's beautiful moment" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1494790108755-2616b786d4d1?w=500&q=80'">
+            </div>
+            <div class="message" style="font-size: 1rem; padding: 10px;">
+                Your smile lights up everything ✨
+            </div>
         </div>
-        <div class="birthday-partner" style="margin-top: 30px;">
-            Happy Birthday Partner 🫂
+
+        <!-- Slide 5: Photo 2 -->
+        <div class="slide" id="slide5">
+            <h2 class="title">Another Special Moment 🌷</h2>
+            <div class="media-container">
+                <img id="photo2" src="IMG_2808.jpeg" alt="Another special moment" 
+                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&q=80'">
+            </div>
+            <div class="message" style="font-size: 1rem; padding: 10px;">
+                Moments worth cherishing forever 💖
+            </div>
         </div>
-        <div style="font-size: 60px; margin: 30px 0; animation: floatUpDown 3s infinite;">💝</div>
-        <div style="margin-top: 20px; font-size: 0.9rem; color: rgba(255,255,255,0.6); text-align: center;">
-            Made with ❤️ for your special day
+
+        <!-- Slide 6: Video 1 -->
+        <div class="slide" id="slide6">
+            <h2 class="title">🎥 Your Special Video Moment</h2>
+            <div class="media-container">
+                <video id="video1" controls playsinline preload="metadata">
+                    <source src="688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="message" style="font-size: 1rem; padding: 10px;">
+                Tap to play your special memory 🎬
+            </div>
         </div>
+
+        <!-- Slide 7: Video 2 -->
+        <div class="slide" id="slide7">
+            <h2 class="title">🎬 Another Beautiful Memory</h2>
+            <div class="media-container">
+                <video id="video2" controls playsinline preload="metadata">
+                    <source src="9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="message" style="font-size: 1rem; padding: 10px;">
+                Another precious moment captured 📹
+            </div>
+        </div>
+
+        <!-- Slide 8: Cake -->
+        <div class="slide" id="slide8">
+            <h2 class="title">Make a Wish! 🎂</h2>
+            <div class="cake-container">
+                <div class="cake">
+                    <div class="candle" style="left: 30px;"></div>
+                    <div class="candle" style="left: 60px;"></div>
+                    <div class="candle" style="left: 90px;"></div>
+                    <div class="candle" style="left: 120px;"></div>
+                    <div class="flame" id="flame"></div>
+                </div>
+            </div>
+            <div class="message">
+                Close your eyes, make a wish, and blow out the candles!
+            </div>
+            <button class="blow-btn" id="blowBtn">🎂 Blow the Candles 🎂</button>
+        </div>
+
+        <!-- Slide 9: Final -->
+        <div class="slide" id="slide9">
+            <div class="final-message">🎉 Happy Birthday Theju! 🎉</div>
+            <div class="message">
+                May this year bring you endless joy, success, and beautiful moments!
+            </div>
+            <div class="partner-text">Happy Birthday Partner 🫂</div>
+            <div class="heart" style="font-size: 60px;">💝</div>
+            <div style="margin-top: 20px; color: #666; font-size: 0.9rem;">
+                Made with ❤️ for your special day
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <div class="nav-text">Click or tap to continue</div>
+            <div class="nav-dots" id="navDots"></div>
+        </div>
+
+        <div class="tap-hint" id="tapHint">Tap anywhere</div>
     </div>
 
     <script>
-        // Main slideshow functionality
+        // Initialize variables
         let currentSlide = 1;
-        const totalSlides = 10;
+        const totalSlides = 9;
         const slides = document.querySelectorAll('.slide');
-
+        
         // Create navigation dots
         const navDots = document.getElementById('navDots');
         for (let i = 1; i <= totalSlides; i++) {
@@ -652,141 +402,97 @@
             navDots.appendChild(dot);
         }
 
-        // Load media from hidden elements
-        function loadMedia() {
-            const img1 = document.getElementById('img1');
-            const img2 = document.getElementById('img2');
-            const vid1 = document.getElementById('vid1');
-            const vid2 = document.getElementById('vid2');
+        // Show specific slide
+        function showSlide(slideNumber) {
+            // Hide all slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
             
-            // Load images
-            if (img1 && img1.src) {
-                const displayImg1 = document.getElementById('displayImg1');
-                if (displayImg1) {
-                    displayImg1.src = img1.src;
-                    displayImg1.alt = img1.alt;
-                }
+            // Show current slide
+            const currentSlideElement = document.getElementById(`slide${slideNumber}`);
+            if (currentSlideElement) {
+                currentSlideElement.classList.add('active');
             }
             
-            if (img2 && img2.src) {
-                const displayImg2 = document.getElementById('displayImg2');
-                if (displayImg2) {
-                    displayImg2.src = img2.src;
-                    displayImg2.alt = img2.alt;
-                }
-            }
+            currentSlide = slideNumber;
             
-            // Load videos
-            if (vid1 && vid1.querySelector('source')) {
-                const displayVid1 = document.getElementById('displayVid1');
-                if (displayVid1) {
-                    displayVid1.innerHTML = vid1.innerHTML;
-                }
-            }
-            
-            if (vid2 && vid2.querySelector('source')) {
-                const displayVid2 = document.getElementById('displayVid2');
-                if (displayVid2) {
-                    displayVid2.innerHTML = vid2.innerHTML;
-                }
-            }
-        }
-
-        // Update progress
-        function updateProgress() {
-            const progress = (currentSlide / totalSlides) * 100;
-            document.getElementById('progressFill').style.width = `${progress}%`;
-            
-            // Update dots
+            // Update navigation dots
             document.querySelectorAll('.dot').forEach((dot, index) => {
-                if (index + 1 <= currentSlide) {
+                if (index + 1 === slideNumber) {
                     dot.classList.add('active');
                 } else {
                     dot.classList.remove('active');
                 }
             });
             
-            // Update click indicator
-            if (currentSlide >= totalSlides) {
-                document.getElementById('clickIndicator').style.opacity = '0.5';
+            // Pause videos when not on video slides
+            if (slideNumber !== 6 && slideNumber !== 7) {
+                const videos = document.querySelectorAll('video');
+                videos.forEach(video => video.pause());
+            }
+            
+            // Hide tap hint on last slide
+            const tapHint = document.getElementById('tapHint');
+            if (slideNumber === totalSlides) {
+                tapHint.style.display = 'none';
             } else {
-                document.getElementById('clickIndicator').style.opacity = '1';
+                tapHint.style.display = 'block';
             }
         }
 
-        // Go to specific slide
-        function goToSlide(slideNumber) {
-            // Pause videos when leaving video slides
-            if (currentSlide === 7 || currentSlide === 8) {
-                const currentVideo = document.querySelector(`#slide${currentSlide} video`);
-                if (currentVideo) {
-                    currentVideo.pause();
-                }
-            }
-            
-            // Hide all slides
-            slides.forEach(slide => {
-                slide.classList.remove('active', 'previous');
-            });
-            
-            // Show current slide
-            const currentSlideElement = document.getElementById(`slide${slideNumber}`);
-            currentSlideElement.classList.add('active');
-            
-            // Show previous slide for transition reference
-            if (slideNumber > 1) {
-                const prevSlide = document.getElementById(`slide${slideNumber - 1}`);
-                prevSlide.classList.add('previous');
-            }
-            
-            currentSlide = slideNumber;
-            updateProgress();
-            
-            // Setup cake blowing if on cake slide
-            if (slideNumber === 9) {
-                setTimeout(() => {
-                    setupCakeBlowing();
-                }, 500);
-            }
-        }
-
-        // Next slide function
+        // Next slide
         function nextSlide() {
             if (currentSlide < totalSlides) {
-                goToSlide(currentSlide + 1);
-            } else {
-                goToSlide(1);
+                showSlide(currentSlide + 1);
             }
         }
 
-        // Previous slide function
+        // Previous slide
         function prevSlide() {
             if (currentSlide > 1) {
-                goToSlide(currentSlide - 1);
+                showSlide(currentSlide - 1);
             }
         }
 
         // Setup cake blowing
         function setupCakeBlowing() {
-            const blowButton = document.getElementById('blowButton');
-            const cakeFlame = document.getElementById('cakeFlame');
+            const blowBtn = document.getElementById('blowBtn');
+            const flame = document.getElementById('flame');
             
-            if (!blowButton || !cakeFlame) return;
+            if (!blowBtn || !flame) return;
             
-            blowButton.addEventListener('click', () => {
-                // Animate flame going out
-                cakeFlame.style.animation = 'none';
-                cakeFlame.style.transform = 'translateX(-50%) scale(0)';
-                cakeFlame.style.transition = 'transform 0.5s ease-out';
-                cakeFlame.style.opacity = '0';
+            blowBtn.addEventListener('click', function() {
+                // Remove flame animation
+                flame.style.animation = 'none';
+                flame.style.opacity = '0';
+                flame.style.transition = 'opacity 0.5s ease-out';
                 
                 // Change button text
-                blowButton.innerHTML = '🎂 Wish Made! 🎂';
-                blowButton.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
-                blowButton.disabled = true;
+                blowBtn.textContent = '🎂 Wish Made! 🎂';
+                blowBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+                blowBtn.disabled = true;
                 
-                // Create floating wishes
-                createFloatingWishes();
+                // Show floating message
+                const message = document.createElement('div');
+                message.textContent = '✨ Wish Coming True! ✨';
+                message.style.position = 'absolute';
+                message.style.top = '50%';
+                message.style.left = '50%';
+                message.style.transform = 'translate(-50%, -50%)';
+                message.style.color = '#ff6b93';
+                message.style.fontSize = '1.5rem';
+                message.style.fontWeight = 'bold';
+                message.style.opacity = '0';
+                message.style.transition = 'all 1s ease-out';
+                
+                document.getElementById('slide8').appendChild(message);
+                
+                // Animate message
+                setTimeout(() => {
+                    message.style.opacity = '1';
+                    message.style.top = '30%';
+                }, 100);
                 
                 // Auto advance to final slide
                 setTimeout(() => {
@@ -795,126 +501,64 @@
             });
         }
 
-        // Create floating birthday wishes
-        function createFloatingWishes() {
-            const wishes = ['Happy Birthday!', 'Make a Wish!', 'All the Best!'];
-            const container = document.getElementById('slide9');
-            
-            wishes.forEach((wish, index) => {
-                setTimeout(() => {
-                    const wishElement = document.createElement('div');
-                    wishElement.className = 'final-message';
-                    wishElement.innerHTML = wish;
-                    wishElement.style.position = 'absolute';
-                    wishElement.style.left = `${20 + index * 30}%`;
-                    wishElement.style.bottom = '50%';
-                    wishElement.style.animation = `floatUpDown 2s ease-out forwards`;
-                    wishElement.style.opacity = '0';
-                    wishElement.style.fontSize = '1.2rem';
-                    
-                    container.appendChild(wishElement);
-                    
-                    setTimeout(() => {
-                        wishElement.style.opacity = '1';
-                    }, index * 200);
-                    
-                    setTimeout(() => {
-                        if (wishElement.parentNode) {
-                            wishElement.parentNode.removeChild(wishElement);
-                        }
-                    }, 2000);
-                }, index * 300);
-            });
-        }
-
-        // Teddy swipe animation
-        function teddySwipe() {
-            const teddy = document.querySelector('.teddy');
-            const teddyContainer = document.getElementById('teddyContainer');
-            
-            // Animate teddy swipe
-            teddy.style.animation = 'none';
-            teddyContainer.style.transform = 'translateX(50px) rotate(10deg)';
-            
-            // Next slide after animation
-            setTimeout(() => {
-                nextSlide();
-                
-                // Reset teddy position
-                setTimeout(() => {
-                    teddyContainer.style.transform = 'none';
-                    teddy.style.animation = 'teddyFloat 4s infinite ease-in-out';
-                }, 300);
-            }, 300);
-        }
-
-        // Teddy click event
-        document.getElementById('teddyContainer').addEventListener('click', teddySwipe);
-
-        // Click anywhere to advance
-        document.addEventListener('click', (e) => {
-            // Don't advance if clicking on video controls or blow button
-            if (!e.target.closest('video') && 
-                !e.target.closest('.blow-button') &&
-                !e.target.closest('#teddyContainer')) {
-                nextSlide();
-            }
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
-                nextSlide();
-                e.preventDefault();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
-                e.preventDefault();
-            }
-        });
-
-        // Touch swipe support for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        document.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        document.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            
-            if (touchEndX < touchStartX - swipeThreshold) {
-                nextSlide();
-            } else if (touchEndX > touchStartX + swipeThreshold) {
-                prevSlide();
-            }
-        }
-
         // Initialize
-        loadMedia();
-        updateProgress();
+        function init() {
+            // Show first slide
+            showSlide(1);
+            
+            // Setup cake blowing
+            setupCakeBlowing();
+            
+            // Click anywhere to advance
+            document.addEventListener('click', function(e) {
+                // Don't advance if clicking on video controls or blow button
+                if (!e.target.closest('video') && 
+                    !e.target.closest('.blow-btn') &&
+                    !e.target.closest('.nav-dots')) {
+                    nextSlide();
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                    nextSlide();
+                    e.preventDefault();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                    e.preventDefault();
+                }
+            });
+            
+            // Touch swipe for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            document.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                const swipeThreshold = 50;
+                
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    nextSlide();
+                } else if (touchEndX > touchStartX + swipeThreshold) {
+                    prevSlide();
+                }
+            });
+            
+            // Auto-advance hint
+            setTimeout(() => {
+                if (currentSlide === 1) {
+                    document.getElementById('tapHint').style.animation = 'bounce 1s infinite';
+                }
+            }, 3000);
+        }
 
-        // Auto-advance after 30 seconds on first slide
-        setTimeout(() => {
-            if (currentSlide === 1) {
-                document.getElementById('clickIndicator').style.animation = 'pulse 1s infinite';
-            }
-        }, 30000);
-
-        // Add float animation for final slide
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes floatUpDown {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-20px); }
-            }
-        `;
-        document.head.appendChild(style);
+        // Start when page loads
+        window.addEventListener('load', init);
     </script>
 </body>
 </html>
