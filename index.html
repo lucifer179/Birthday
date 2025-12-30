@@ -9,7 +9,12 @@
     --soft-pink: #fff5f7;
     --warm-pink: #ffb8c6;
     --gentle-text: #5a5a5a;
-    --soft-shadow: rgba(255, 182, 193, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -21,524 +26,525 @@ body {
     align-items: center;
     font-family: 'Georgia', 'Times New Roman', serif;
     overflow: hidden;
+}
+
+/* Slideshow container */
+.slideshow-container {
+    width: 100%;
+    height: 100vh;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Subtle background elements */
-.bg-sparkle {
+/* Each slide */
+.slide {
     position: absolute;
-    font-size: 20px;
-    opacity: 0.3;
-    animation: sparkleFloat 20s infinite linear;
-    z-index: 0;
-}
-
-@keyframes sparkleFloat {
-    0% { transform: translateY(100vh) rotate(0deg); }
-    100% { transform: translateY(-100px) rotate(180deg); }
-}
-
-.container {
     width: 90%;
     max-width: 500px;
-    z-index: 1;
-    position: relative;
-}
-
-.card {
+    padding: 40px 30px;
     background: white;
-    padding: 35px;
     border-radius: 25px;
     text-align: center;
-    box-shadow: 
-        0 15px 35px var(--soft-shadow),
-        inset 0 0 0 1px rgba(255, 184, 198, 0.2);
-    transition: all 0.4s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        var(--warm-pink), 
-        transparent);
-}
-
-/* Hidden states */
-.hidden {
+    box-shadow: 0 15px 35px rgba(255, 182, 193, 0.15);
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(20px);
     transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    pointer-events: none;
 }
 
-.visible {
+.slide.active {
     opacity: 1;
     transform: translateY(0);
+    pointer-events: all;
+    z-index: 2;
 }
 
-/* Typography */
-.title {
+.slide.previous {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+/* Slide content styling */
+.slide-title {
     color: #ff6b93;
-    font-size: 2.2rem;
-    margin-bottom: 30px;
+    font-size: 2rem;
+    margin-bottom: 25px;
     font-weight: normal;
-    letter-spacing: 1px;
 }
 
-.message {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--gentle-text);
-    margin: 25px 0;
-    padding: 22px;
-    background: var(--soft-pink);
-    border-radius: 18px;
-    border-left: 4px solid var(--warm-pink);
-    position: relative;
-}
-
-.message::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        var(--warm-pink), 
-        transparent);
-}
-
-/* Media containers */
-.media-container {
-    margin: 30px 0;
-    position: relative;
-}
-
-.media-container img,
-.media-container video {
-    width: 100%;
-    border-radius: 18px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    border: 3px solid white;
-    transition: transform 0.5s ease;
-}
-
-.media-container img:hover,
-.media-container video:hover {
-    transform: scale(1.01);
-}
-
-/* Gentle reveal for photos/videos */
-.media-reveal {
-    animation: gentleReveal 0.8s ease-out forwards;
-}
-
-@keyframes gentleReveal {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Connection section - appears after videos */
-.connection-container {
-    background: linear-gradient(135deg, #fff9fb, #fff0f5);
-    border-radius: 20px;
-    padding: 30px;
-    margin: 30px 0;
-    border: 1px solid rgba(255, 184, 198, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.connection-container::before {
-    content: '💫';
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 30px;
-    opacity: 0.5;
-}
-
-.connection-message {
-    font-size: 1rem;
+.slide-message {
+    font-size: 1.2rem;
     line-height: 1.7;
-    color: #666;
+    color: var(--gentle-text);
+    padding: 25px;
+    background: var(--soft-pink);
+    border-radius: 20px;
     margin: 20px 0;
-    padding: 18px;
-    background: white;
-    border-radius: 15px;
-    border: 1px dashed var(--warm-pink);
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 4px solid var(--warm-pink);
+}
+
+.slide-media {
+    width: 100%;
+    max-height: 400px;
+    border-radius: 20px;
+    object-fit: contain;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    margin: 20px 0;
+    background: #f9f9f9;
+}
+
+/* Video styling */
+video.slide-media {
+    background: black;
+}
+
+/* Heart animation */
+.heart-slide {
+    font-size: 60px;
+    animation: gentleBeat 2s infinite;
+    margin: 30px 0;
+}
+
+@keyframes gentleBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Connection slide */
+.connection-slide {
+    background: linear-gradient(135deg, #fff9fb, #fff0f5);
 }
 
 .connection-question {
     font-style: italic;
     color: #ff6b93;
     margin-top: 25px;
-    padding-top: 20px;
+    font-size: 1.1rem;
+    padding: 20px;
     border-top: 1px solid rgba(255, 107, 147, 0.2);
 }
 
-/* Heartbeat animation */
-.heartbeat {
-    font-size: 50px;
-    margin: 25px 0;
-    display: inline-block;
-    animation: gentleHeartbeat 2s infinite;
-}
-
-@keyframes gentleHeartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-}
-
-/* Thoughtful question */
-.question-box {
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    margin: 25px 0;
-    box-shadow: 0 5px 20px rgba(255, 182, 193, 0.1);
-    border: 1px solid rgba(255, 184, 198, 0.2);
-}
-
-.question {
-    font-size: 1.1rem;
-    color: #ff6b93;
-    margin-bottom: 15px;
-}
-
-.options {
+/* Options styling */
+.options-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     gap: 15px;
-    margin-top: 20px;
+    margin: 25px 0;
 }
 
 .option-btn {
-    padding: 12px 25px;
+    padding: 15px 30px;
     border: 2px solid var(--warm-pink);
     background: white;
     color: #ff6b93;
     border-radius: 50px;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 1rem;
     transition: all 0.3s ease;
     font-family: inherit;
 }
 
 .option-btn:hover {
     background: var(--soft-pink);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 184, 198, 0.2);
 }
 
-.option-btn.selected {
-    background: var(--warm-pink);
-    color: white;
+/* Navigation */
+.navigation {
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
 }
 
-/* Final gentle message */
-.final-note {
-    font-size: 1rem;
-    color: #777;
-    margin-top: 30px;
-    padding: 20px;
-    font-style: italic;
-    border-top: 1px solid rgba(255, 184, 198, 0.3);
-}
-
-/* Progress indicator */
-.progress {
-    margin-top: 25px;
+.nav-text {
     color: #ff6b93;
     font-size: 0.9rem;
     opacity: 0.7;
+    margin-bottom: 10px;
 }
 
-/* Cursor */
-.click-cursor {
+.nav-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 107, 147, 0.3);
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #ff6b93;
+    transform: scale(1.2);
+}
+
+/* Progress indicator */
+.progress-bar {
+    width: 200px;
+    height: 3px;
+    background: rgba(255, 107, 147, 0.2);
+    border-radius: 10px;
+    margin: 15px auto;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #ff6b93;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* Background decorations */
+.bg-decoration {
+    position: fixed;
+    font-size: 25px;
+    opacity: 0.2;
+    z-index: 0;
+    animation: floatAround 25s infinite linear;
+}
+
+@keyframes floatAround {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(100px, 100vh) rotate(360deg);
+    }
+}
+
+/* Click indicator */
+.click-indicator {
     position: absolute;
-    bottom: 20px;
+    bottom: 80px;
     left: 50%;
     transform: translateX(-50%);
     color: #ff6b93;
     font-size: 0.9rem;
-    animation: blink 2s infinite;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    animation: pulse 2s infinite;
 }
 
-@keyframes blink {
+@keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
+}
+
+/* Final slide */
+.final-slide {
+    background: linear-gradient(135deg, #fff, #fff5f7);
+    border: 2px dashed var(--warm-pink);
+}
+
+.final-heart {
+    font-size: 70px;
+    margin: 20px 0;
+    animation: floatUpDown 3s infinite ease-in-out;
+}
+
+@keyframes floatUpDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 </style>
 </head>
 
 <body>
-<!-- Background sparkles -->
-<div class="bg-sparkle" style="top:10%; left:5%;">✨</div>
-<div class="bg-sparkle" style="top:20%; right:10%;">🌸</div>
-<div class="bg-sparkle" style="top:70%; left:10%;">💫</div>
-<div class="bg-sparkle" style="top:85%; right:5%;">🌙</div>
+<!-- Background decorations -->
+<div class="bg-decoration" style="top:10%; left:5%;">🌸</div>
+<div class="bg-decoration" style="top:15%; right:8%;">✨</div>
+<div class="bg-decoration" style="top:70%; left:8%;">💫</div>
+<div class="bg-decoration" style="top:80%; right:5%;">🌷</div>
 
-<div class="container">
-    <div class="card" id="card">
-        <h1 class="title" id="title">For Theju's Special Day ✨</h1>
+<!-- Navigation -->
+<div class="navigation">
+    <div class="nav-text">Click anywhere to continue</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="nav-dots" id="navDots"></div>
+</div>
 
-        <!-- Initial messages -->
-        <div class="message hidden" id="m1">
-            Watching you celebrate today made me realize something simple yet beautiful...
-        </div>
+<!-- Click indicator -->
+<div class="click-indicator" id="clickIndicator">
+    <span>▼</span> Tap to continue
+</div>
 
-        <div class="message hidden" id="m2">
-            There's a genuine light that comes from you when you're happy. 
-            It's not something you put on — it's just you being you.
-        </div>
+<!-- SLIDE 1: Title -->
+<div class="slide active" id="slide1">
+    <h1 class="slide-title">For Theju's Special Day ✨</h1>
+    <div class="slide-message">
+        A little something for your birthday...
+    </div>
+</div>
 
-        <!-- First Image -->
-        <div class="media-container hidden" id="img1">
-            <img src="IMG_2247.jpeg" alt="A happy moment">
-        </div>
+<!-- SLIDE 2: Message 1 -->
+<div class="slide" id="slide2">
+    <div class="slide-message">
+        Watching you celebrate today made me realize something simple yet beautiful...
+    </div>
+</div>
 
-        <div class="message hidden" id="m3">
-            Moments like these are rare. They're the kind you want to remember, 
-            to hold onto because they feel real and true.
-        </div>
+<!-- SLIDE 3: Message 2 -->
+<div class="slide" id="slide3">
+    <div class="slide-message">
+        There's a genuine light that comes from you when you're happy.<br><br>
+        It's not something you put on — it's just you being you.
+    </div>
+</div>
 
-        <!-- Second Image -->
-        <div class="media-container hidden" id="img2">
-            <img src="IMG_2808.jpeg" alt="Another beautiful moment">
-        </div>
+<!-- SLIDE 4: Photo 1 -->
+<div class="slide" id="slide4">
+    <h2 class="slide-title">A Happy Moment 🌸</h2>
+    <img class="slide-media" src="IMG_2247.jpeg" alt="A happy moment">
+</div>
 
-        <div class="message hidden" id="m4">
-            I admire how you carry yourself — with grace and a quiet strength 
-            that doesn't need to announce itself.
-        </div>
+<!-- SLIDE 5: Message 3 -->
+<div class="slide" id="slide5">
+    <div class="slide-message">
+        Moments like these are rare.<br><br>
+        They're the kind you want to remember, to hold onto because they feel real and true.
+    </div>
+</div>
 
-        <!-- First Video -->
-        <div class="media-container hidden" id="vid1">
-            <video controls playsinline>
-                <source src="688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4" type="video/mp4">
-            </video>
-        </div>
+<!-- SLIDE 6: Photo 2 -->
+<div class="slide" id="slide6">
+    <h2 class="slide-title">Another Beautiful Moment 🌷</h2>
+    <img class="slide-media" src="IMG_2808.jpeg" alt="Another beautiful moment">
+</div>
 
-        <!-- Second Video -->
-        <div class="media-container hidden" id="vid2">
-            <video controls playsinline>
-                <source src="9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4" type="video/mp4">
-            </video>
-        </div>
+<!-- SLIDE 7: Message 4 -->
+<div class="slide" id="slide7">
+    <div class="slide-message">
+        I admire how you carry yourself — with grace and a quiet strength that doesn't need to announce itself.
+    </div>
+</div>
 
-        <!-- Connection Section (After Videos) -->
-        <div class="connection-container hidden" id="connection">
-            <div class="heartbeat">💖</div>
-            
-            <div class="connection-message">
-                Seeing you in these moments... it made me want to know more about you.
-                Not just the celebrations, but the quiet moments too.
-            </div>
+<!-- SLIDE 8: Video 1 -->
+<div class="slide" id="slide8">
+    <h2 class="slide-title">🎥 Your Special Moment</h2>
+    <video class="slide-media" controls playsinline>
+        <source src="688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4" type="video/mp4">
+    </video>
+</div>
 
-            <div class="connection-message">
-                There's a curiosity here — about your thoughts, your dreams, 
-                the little things that make you smile when no one's watching.
-            </div>
+<!-- SLIDE 9: Video 2 -->
+<div class="slide" id="slide9">
+    <h2 class="slide-title">🎬 Another Memory</h2>
+    <video class="slide-media" controls playsinline>
+        <source src="9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4" type="video/mp4">
+    </video>
+</div>
 
-            <div class="question-box hidden" id="questionBox">
-                <div class="question">
-                    If we were to talk more, what would you want to share first?
-                </div>
-                <div class="options">
-                    <button class="option-btn" onclick="selectOption(1)">Your passions</button>
-                    <button class="option-btn" onclick="selectOption(2)">Your stories</button>
-                    <button class="option-btn" onclick="selectOption(3)">Your thoughts</button>
-                </div>
-            </div>
+<!-- SLIDE 10: Heart Transition -->
+<div class="slide" id="slide10">
+    <div class="heart-slide">💖</div>
+    <div class="slide-message">
+        Seeing you in these moments...<br><br>
+        It made me want to know more about you.
+    </div>
+</div>
 
-            <div class="connection-question hidden" id="gentleAsk">
-                Would you be open to a conversation sometime?<br>
-                No pressure, just two people getting to know each other.
-            </div>
-        </div>
+<!-- SLIDE 11: Connection -->
+<div class="slide connection-slide" id="slide11">
+    <div class="slide-message">
+        There's a curiosity here — about your thoughts, your dreams, the little things that make you smile when no one's watching.
+    </div>
+</div>
 
-        <!-- Final Section -->
-        <div class="message hidden final-note" id="finalNote">
-            Whatever happens next, I'm grateful I got to witness your special day.<br>
-            You deserve all the happiness in the world. 💫
-        </div>
+<!-- SLIDE 12: Question -->
+<div class="slide connection-slide" id="slide12">
+    <div class="slide-message">
+        If we were to talk more, what would you want to share first?
+    </div>
+    <div class="options-container">
+        <button class="option-btn" onclick="selectOption(1, this)">Your passions ✨</button>
+        <button class="option-btn" onclick="selectOption(2, this)">Your stories 📖</button>
+        <button class="option-btn" onclick="selectOption(3, this)">Your thoughts 💭</button>
+    </div>
+</div>
 
-        <div class="progress" id="progress">Tap to continue...</div>
-        <div class="click-cursor" id="cursor">▼</div>
+<!-- SLIDE 13: Gentle Ask -->
+<div class="slide connection-slide" id="slide13">
+    <div class="slide-message">
+        Would you be open to a conversation sometime?<br><br>
+        No pressure, just two people getting to know each other.
+    </div>
+    <div class="connection-question">
+        💫 The choice is always yours 💫
+    </div>
+</div>
+
+<!-- SLIDE 14: Final -->
+<div class="slide final-slide" id="slide14">
+    <div class="final-heart">💝</div>
+    <div class="slide-message">
+        Whatever happens next, I'm grateful I got to witness your special day.<br><br>
+        You deserve all the happiness in the world.
+    </div>
+    <div class="connection-question" style="margin-top: 30px;">
+        Happy Birthday, Thejuuuuu 🌸
     </div>
 </div>
 
 <script>
-let step = 0;
-const totalSteps = 11; // Total number of reveal steps
+let currentSlide = 1;
+const totalSlides = 14;
+const slides = document.querySelectorAll('.slide');
 
-// All elements in reveal order
-const elements = [
-    'm1', 'm2', 'img1', 'm3', 'img2', 
-    'm4', 'vid1', 'vid2', 'connection',
-    'questionBox', 'gentleAsk', 'finalNote'
-];
-
-// Video elements for auto-play
-const videoElements = ['vid1', 'vid2'];
-
-function nextStep() {
-    // Update title on first click
-    if (step === 0) {
-        document.getElementById('title').innerHTML = "A Message For You 🌸";
-        document.getElementById('progress').innerHTML = "1/" + totalSteps;
-    }
-
-    // Reveal current element
-    if (step < elements.length) {
-        const elementId = elements[step];
-        const element = document.getElementById(elementId);
-        
-        if (element) {
-            // Remove hidden class
-            element.classList.remove('hidden');
-            
-            // Add visible class with delay for animation
-            setTimeout(() => {
-                element.classList.add('visible');
-                
-                // Special handling for different elements
-                if (element.classList.contains('media-container')) {
-                    element.classList.add('media-reveal');
-                    
-                    // Auto-play videos
-                    if (videoElements.includes(elementId)) {
-                        setTimeout(() => {
-                            const video = element.querySelector('video');
-                            if (video) {
-                                video.play().catch(e => {
-                                    console.log("Video play failed:", e);
-                                    // If autoplay fails, show play button
-                                    video.controls = true;
-                                });
-                            }
-                        }, 500);
-                    }
-                }
-                
-                // After videos play, show connection section
-                if (elementId === 'vid2') {
-                    setTimeout(() => {
-                        // Auto-advance to connection after video plays for a bit
-                        if (step === elements.indexOf('vid2')) {
-                            setTimeout(() => {
-                                step++;
-                                nextStep();
-                            }, 3000); // Wait 3 seconds after video starts
-                        }
-                    }, 1000);
-                }
-            }, 100);
-        }
-        
-        step++;
-        
-        // Update progress
-        document.getElementById('progress').innerHTML = 
-            Math.min(step + 1, totalSteps) + "/" + totalSteps;
-            
-        // Update cursor
-        if (step >= elements.length - 2) {
-            document.getElementById('cursor').style.opacity = '0.3';
-        }
-    }
-    
-    // Hide cursor when done
-    if (step >= elements.length) {
-        document.getElementById('cursor').style.display = 'none';
-        document.getElementById('progress').innerHTML = "Thank you for watching 💖";
-    }
+// Create navigation dots
+const navDots = document.getElementById('navDots');
+for (let i = 1; i <= totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.dataset.slide = i;
+    navDots.appendChild(dot);
 }
 
-// Option selection in question box
-function selectOption(optionNum) {
-    // Remove selection from all buttons
-    document.querySelectorAll('.option-btn').forEach(btn => {
-        btn.classList.remove('selected');
+// Update progress
+function updateProgress() {
+    const progress = (currentSlide / totalSlides) * 100;
+    document.getElementById('progressFill').style.width = `${progress}%`;
+    
+    // Update dots
+    document.querySelectorAll('.dot').forEach((dot, index) => {
+        if (index + 1 <= currentSlide) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
     });
     
-    // Add selection to clicked button
-    event.target.classList.add('selected');
-    
-    // Responses based on selection
-    const responses = [
-        "That's beautiful. I'd love to hear about what moves you.",
-        "Every story matters. I'm here to listen.",
-        "The way you think is something special. I'd value that."
-    ];
-    
-    // Show gentle response
-    setTimeout(() => {
-        const questionBox = document.getElementById('questionBox');
-        questionBox.innerHTML = `
-            <div class="connection-message">
-                ${responses[optionNum - 1]}
-                <div style="margin-top: 15px; color: #ff6b93; font-size: 0.9rem;">
-                    ~ A genuine thought from someone who noticed
-                </div>
-            </div>
-        `;
-        
-        // Show the gentle ask after response
-        setTimeout(() => {
-            document.getElementById('gentleAsk').classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('gentleAsk').classList.add('visible');
-            }, 100);
-        }, 1500);
-    }, 500);
+    // Update click indicator
+    if (currentSlide >= totalSlides) {
+        document.getElementById('clickIndicator').style.opacity = '0.3';
+    }
 }
 
-// Auto-play videos when they come into view
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const video = entry.target.querySelector('video');
-            if (video && !video.played) {
+// Go to specific slide
+function goToSlide(slideNumber) {
+    // Hide all slides
+    slides.forEach(slide => {
+        slide.classList.remove('active', 'previous');
+    });
+    
+    // Show current slide
+    const currentSlideElement = document.getElementById(`slide${slideNumber}`);
+    currentSlideElement.classList.add('active');
+    
+    // Show previous slide for transition reference
+    if (slideNumber > 1) {
+        const prevSlide = document.getElementById(`slide${slideNumber - 1}`);
+        prevSlide.classList.add('previous');
+    }
+    
+    currentSlide = slideNumber;
+    updateProgress();
+    
+    // Auto-play videos when they appear
+    if (slideNumber === 8 || slideNumber === 9) {
+        setTimeout(() => {
+            const video = currentSlideElement.querySelector('video');
+            if (video) {
                 video.play().catch(e => {
-                    // Autoplay failed, ensure controls are visible
+                    console.log("Auto-play failed, showing controls");
                     video.controls = true;
                 });
+                
+                // Auto-advance when video ends
+                video.addEventListener('ended', () => {
+                    setTimeout(() => {
+                        nextSlide();
+                    }, 1500);
+                });
             }
-        }
-    });
-}, {
-    threshold: 0.5
-});
+        }, 800);
+    }
+    
+    // Auto-advance from videos after delay
+    if (slideNumber === 8 || slideNumber === 9) {
+        setTimeout(() => {
+            // If still on same slide after 10 seconds, allow advance
+            setTimeout(() => {
+                if (currentSlide === slideNumber) {
+                    // Add continue prompt
+                    const continuePrompt = document.createElement('div');
+                    continuePrompt.className = 'click-indicator';
+                    continuePrompt.innerHTML = 'Tap to continue ▼';
+                    continuePrompt.style.position = 'absolute';
+                    continuePrompt.style.bottom = '20px';
+                    continuePrompt.style.left = '50%';
+                    continuePrompt.style.transform = 'translateX(-50%)';
+                    continuePrompt.style.animation = 'pulse 1.5s infinite';
+                    currentSlideElement.appendChild(continuePrompt);
+                }
+            }, 10000);
+        }, 1000);
+    }
+}
 
-// Initialize video observer
-document.querySelectorAll('.media-container').forEach(container => {
-    observer.observe(container);
-});
+// Next slide function
+function nextSlide() {
+    if (currentSlide < totalSlides) {
+        goToSlide(currentSlide + 1);
+        
+        // Add gentle sound
+        playGentleSound();
+    }
+}
 
-// Handle card click
-document.getElementById('card').addEventListener('click', nextStep);
+// Option selection
+function selectOption(optionNum, button) {
+    // Add selection effect
+    button.style.background = '#ff6b93';
+    button.style.color = 'white';
+    button.style.transform = 'scale(1.05)';
+    
+    // Responses
+    const responses = [
+        "I'd love to hear about what moves you.",
+        "Every story matters. I'm here to listen.",
+        "The way you think is something special."
+    ];
+    
+    // Update slide content
+    const slide12 = document.getElementById('slide12');
+    slide12.innerHTML = `
+        <div class="slide-message">
+            "${responses[optionNum - 1]}"
+            <div style="margin-top: 25px; font-style: italic; color: #ff6b93;">
+                ~ A genuine thought
+            </div>
+        </div>
+    `;
+    
+    // Auto-proceed to next slide after delay
+    setTimeout(() => {
+        nextSlide();
+    }, 2500);
+}
 
-// Add gentle sound on click
-document.getElementById('card').addEventListener('click', () => {
-    // Create subtle click sound
+// Gentle click sound
+function playGentleSound() {
     try {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const oscillator = audioContext.createOscillator();
@@ -547,39 +553,87 @@ document.getElementById('card').addEventListener('click', () => {
         oscillator.connect(gainNode);
         gainNode.connect(audioContext.destination);
         
-        // Gentle bell-like sound
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(784, audioContext.currentTime); // G5
-        oscillator.frequency.exponentialRampToValueAtTime(523.25, audioContext.currentTime + 0.15); // C5
+        oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime); // E5
+        oscillator.frequency.exponentialRampToValueAtTime(523.25, audioContext.currentTime + 0.1); // C5
         
-        gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
+        gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.15);
         
         oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.2);
+        oscillator.stop(audioContext.currentTime + 0.15);
     } catch (e) {
         // Sound not supported
     }
+}
+
+// Click anywhere to advance
+document.addEventListener('click', (e) => {
+    // Don't advance if clicking on option buttons (they have their own handler)
+    if (!e.target.classList.contains('option-btn')) {
+        nextSlide();
+    }
 });
 
-// Initialize background sparkles
-function createSparkles() {
-    const container = document.body;
-    const sparkles = ['✨', '🌸', '💫', '🌙', '⭐', '🔆'];
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+    } else if (e.key === 'ArrowLeft') {
+        if (currentSlide > 1) {
+            goToSlide(currentSlide - 1);
+        }
+    }
+});
+
+// Touch swipe support for mobile
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 50;
     
-    for (let i = 0; i < 12; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'bg-sparkle';
-        sparkle.innerHTML = sparkles[i % sparkles.length];
-        sparkle.style.left = `${Math.random() * 100}%`;
-        sparkle.style.top = `${Math.random() * 100}%`;
-        sparkle.style.animationDelay = `${Math.random() * 5}s`;
-        sparkle.style.fontSize = `${15 + Math.random() * 15}px`;
-        container.appendChild(sparkle);
+    if (touchEndX < touchStartX - swipeThreshold) {
+        // Swipe left - next
+        nextSlide();
+    } else if (touchEndX > touchStartX + swipeThreshold) {
+        // Swipe right - previous
+        if (currentSlide > 1) {
+            goToSlide(currentSlide - 1);
+        }
     }
 }
 
-createSparkles();
+// Initialize
+updateProgress();
+
+// Add more background decorations
+function addDecorations() {
+    const decorations = ['🌸', '✨', '💫', '🌷', '💖', '⭐', '🌼', '🎀'];
+    const body = document.body;
+    
+    for (let i = 0; i < 15; i++) {
+        const decor = document.createElement('div');
+        decor.className = 'bg-decoration';
+        decor.innerHTML = decorations[i % decorations.length];
+        decor.style.left = `${Math.random() * 100}%`;
+        decor.style.top = `${Math.random() * 100}%`;
+        decor.style.animationDelay = `${Math.random() * 5}s`;
+        decor.style.fontSize = `${20 + Math.random() * 20}px`;
+        decor.style.opacity = `${0.1 + Math.random() * 0.15}`;
+        body.appendChild(decor);
+    }
+}
+
+addDecorations();
 </script>
 </body>
 </html>
