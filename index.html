@@ -11,6 +11,7 @@
             --gentle-text: #5a5a5a;
             --accent-color: #ff6b93;
             --gold: #ffd700;
+            --sparkle: rgba(255, 255, 255, 0.8);
         }
 
         * {
@@ -22,13 +23,18 @@
         body {
             margin: 0;
             height: 100vh;
-            background: linear-gradient(135deg, #fff5f7, #ffeef2);
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
-            color: var(--gentle-text);
+            color: white;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23ff6b93' opacity='0.8'/%3E%3Ccircle cx='16' cy='16' r='6' fill='white'/%3E%3C/svg%3E") 16 16, auto;
+        }
+
+        .hidden {
+            display: none;
         }
 
         /* Slideshow container */
@@ -39,131 +45,210 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            perspective: 1000px;
         }
 
         /* Each slide */
         .slide {
             position: absolute;
             width: 90%;
-            max-width: 550px;
+            max-width: 600px;
             padding: 40px 30px;
-            background: white;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            backdrop-filter: blur(10px);
             border-radius: 25px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
+                        0 0 0 1px rgba(255,107,147,0.1),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            transform: translateY(50px) rotateX(10deg);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             pointer-events: none;
             z-index: 1;
             overflow: hidden;
         }
 
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .slide.active::before {
+            left: 100%;
+        }
+
         .slide.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) rotateX(0);
             pointer-events: all;
             z-index: 2;
         }
 
         .slide.previous {
             opacity: 0;
-            transform: translateY(-20px);
+            transform: translateY(-50px) rotateX(-10deg);
             pointer-events: none;
         }
 
         /* Slide content styling */
         .slide-title {
-            color: var(--accent-color);
-            font-size: 1.9rem;
-            margin-bottom: 25px;
-            font-weight: normal;
-            line-height: 1.4;
+            color: #ff6b93;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(255,107,147,0.3);
+            background: linear-gradient(45deg, #ff6b93, #ff8fab);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleGlow 3s infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 20px rgba(255,107,147,0.3); }
+            100% { text-shadow: 0 0 30px rgba(255,107,147,0.6), 0 0 40px rgba(255,107,147,0.4); }
         }
 
         .slide-message {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            color: var(--gentle-text);
-            padding: 25px;
-            background: var(--soft-pink);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+            padding: 30px;
+            background: rgba(255,255,255,0.05);
             border-radius: 20px;
-            margin: 20px 0;
+            margin: 25px 0;
             min-height: 180px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-left: 4px solid var(--warm-pink);
-        }
-
-        .special-message {
-            background: linear-gradient(135deg, #fff9fb, #fff0f5);
-            border-left: 4px solid var(--gold);
-            font-style: italic;
-            color: #ff6b93;
-        }
-
-        /* Teddy Animation Container */
-        .teddy-container {
+            border-left: 4px solid #ff6b93;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
             position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .slide-message::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,107,147,0.05), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        /* Media containers */
+        .media-container {
+            width: 100%;
+            max-height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 25px 0;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255,107,147,0.3);
+        }
+
+        .slide-media {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .slide-media:hover {
+            transform: scale(1.05);
+        }
+
+        /* Interactive Teddy Bear */
+        .teddy-container {
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            width: 100px;
+            height: 150px;
+            z-index: 1000;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .teddy-container:hover {
+            transform: scale(1.1);
         }
 
         .teddy {
-            width: 120px;
-            height: 150px;
-            background: #8B4513;
-            border-radius: 50% 50% 40% 40%;
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(45deg, #8B4513, #A0522D);
+            border-radius: 40% 40% 45% 45%;
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: teddyFloat 3s infinite ease-in-out;
+            top: 0;
+            left: 10px;
+            animation: teddyFloat 4s infinite ease-in-out;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             z-index: 2;
         }
 
         .teddy-ear {
-            width: 40px;
-            height: 40px;
-            background: #8B4513;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #8B4513, #A0522D);
             border-radius: 50%;
             position: absolute;
-            top: -15px;
+            top: -10px;
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2);
         }
 
         .teddy-ear.left {
-            left: 10px;
+            left: 5px;
+            transform: rotate(-15deg);
         }
 
         .teddy-ear.right {
-            right: 10px;
+            right: 5px;
+            transform: rotate(15deg);
         }
 
         .teddy-eye {
-            width: 15px;
-            height: 15px;
+            width: 12px;
+            height: 12px;
             background: white;
             border-radius: 50%;
             position: absolute;
-            top: 45px;
+            top: 35px;
             border: 2px solid #333;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
         .teddy-eye.left {
-            left: 35px;
+            left: 20px;
+            animation: blink 3s infinite;
         }
 
         .teddy-eye.right {
-            right: 35px;
+            right: 20px;
+            animation: blink 3s infinite 0.1s;
         }
 
         .teddy-eye::after {
             content: '';
-            width: 7px;
-            height: 7px;
+            width: 5px;
+            height: 5px;
             background: #333;
             border-radius: 50%;
             position: absolute;
@@ -172,98 +257,181 @@
         }
 
         .teddy-nose {
-            width: 20px;
-            height: 15px;
+            width: 15px;
+            height: 10px;
             background: black;
             border-radius: 50%;
             position: absolute;
-            top: 70px;
+            top: 55px;
             left: 50%;
             transform: translateX(-50%);
         }
 
         .teddy-heart {
             position: absolute;
-            top: 100px;
+            top: 80px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 30px;
+            font-size: 25px;
             color: #ff6b93;
-            animation: heartBeat 1.5s infinite;
+            animation: heartFloat 2s infinite;
             z-index: 3;
+            filter: drop-shadow(0 0 10px rgba(255,107,147,0.5));
+        }
+
+        .teddy-arm {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background: linear-gradient(45deg, #8B4513, #A0522D);
+            border-radius: 15px;
+            top: 50px;
+            animation: wave 2s infinite;
+        }
+
+        .teddy-arm.left {
+            left: -15px;
+            transform-origin: right center;
+        }
+
+        .teddy-arm.right {
+            right: -15px;
+            transform-origin: left center;
+            animation-delay: 1s;
         }
 
         @keyframes teddyFloat {
-            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-            50% { transform: translate(-50%, -50%) translateY(-10px); }
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-20px) rotate(5deg); }
         }
 
-        @keyframes heartBeat {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.2); }
+        @keyframes heartFloat {
+            0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+            50% { transform: translateX(-50%) translateY(-10px) scale(1.2); }
         }
 
-        /* Gift Box Animation */
+        @keyframes wave {
+            0%, 100% { transform: rotate(0); }
+            50% { transform: rotate(30deg); }
+        }
+
+        @keyframes blink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+        }
+
+        /* Dance Description Special Styling */
+        .dance-description {
+            background: linear-gradient(135deg, rgba(255,107,147,0.1), rgba(255,255,255,0.05));
+            border-left: 4px solid #ff6b93;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-style: italic;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dance-description::before {
+            content: '🔥';
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: fireFloat 2s infinite alternate;
+        }
+
+        .dance-description::after {
+            content: '💃';
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            right: 20px;
+            bottom: 20px;
+            animation: danceFloat 2s infinite alternate;
+        }
+
+        @keyframes fireFloat {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-10px) scale(1.2); }
+        }
+
+        @keyframes danceFloat {
+            0% { transform: translateY(0) rotate(0); }
+            100% { transform: translateY(-10px) rotate(10deg); }
+        }
+
+        /* Explosive Gift Animation */
         .gift-container {
             position: relative;
             width: 200px;
             height: 200px;
             margin: 30px auto;
+            cursor: pointer;
         }
 
         .gift-box {
             width: 120px;
             height: 120px;
-            background: #ff6b93;
+            background: linear-gradient(45deg, #ff6b93, #ff8fab);
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            border-radius: 10px;
+            border-radius: 15px;
             z-index: 2;
+            box-shadow: 0 10px 30px rgba(255,107,147,0.3);
+            transition: all 0.5s ease;
+        }
+
+        .gift-box:hover {
+            transform: translate(-50%, -50%) scale(1.1);
         }
 
         .gift-lid {
-            width: 130px;
-            height: 30px;
-            background: #ff8fab;
+            width: 140px;
+            height: 40px;
+            background: linear-gradient(45deg, #ff8fab, #ffb8c6);
             position: absolute;
-            top: 35%;
+            top: 30%;
             left: 50%;
             transform: translate(-50%, -50%);
-            border-radius: 10px 10px 0 0;
+            border-radius: 15px 15px 0 0;
             z-index: 3;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .gift-bow {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             position: absolute;
-            top: 25%;
+            top: 20%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 4;
         }
 
         .bow-center {
-            width: 30px;
-            height: 30px;
-            background: gold;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, gold, #ffd700);
             border-radius: 50%;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px gold;
         }
 
         .bow-loop {
-            width: 40px;
-            height: 60px;
-            background: gold;
+            width: 50px;
+            height: 70px;
+            background: linear-gradient(45deg, gold, #ffd700);
             border-radius: 50%;
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
+            box-shadow: 0 0 15px gold;
         }
 
         .bow-loop.left {
@@ -276,169 +444,22 @@
             transform: translateY(-50%) rotate(45deg);
         }
 
-        .gift-ribbon {
-            width: 20px;
-            height: 100px;
-            background: gold;
+        /* Enhanced Particle System */
+        .particle {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Balloons and Confetti */
-        .balloon {
-            position: absolute;
-            width: 40px;
-            height: 50px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            animation: floatUp 15s infinite linear;
-            z-index: 0;
-        }
-
-        .balloon::after {
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 70px;
-            background: rgba(0,0,0,0.2);
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1000;
         }
 
         .confetti {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: var(--accent-color);
-            opacity: 0;
-            z-index: 0;
-        }
-
-        .confetti.triangle {
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        }
-
-        .confetti.circle {
-            border-radius: 50%;
-        }
-
-        .confetti.star {
-            background: gold;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes confettiFall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Cake Animation */
-        .cake-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 30px auto;
-        }
-
-        .cake {
-            width: 150px;
-            height: 80px;
-            background: #f8c8dc;
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 10px 10px 0 0;
-            z-index: 2;
-        }
-
-        .cake-layer {
-            position: absolute;
-            width: 100%;
-            height: 25px;
-            background: pink;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .cake-layer.top {
-            top: 0;
-            background: #ffb8c6;
-        }
-
-        .cake-layer.middle {
-            top: 25px;
-        }
-
-        .cake-layer.bottom {
-            top: 50px;
-            background: #ff8fab;
-        }
-
-        .candle {
-            width: 6px;
-            height: 30px;
-            background: white;
-            position: absolute;
-            top: -30px;
-            border-radius: 3px;
-        }
-
-        .flame {
             width: 15px;
-            height: 25px;
-            background: gold;
-            border-radius: 50% 50% 20% 20%;
-            position: absolute;
-            top: -55px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: flicker 0.5s infinite alternate;
-            box-shadow: 0 0 20px gold;
-        }
-
-        @keyframes flicker {
-            0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
-            100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
-        }
-
-        /* Eyes and Dance Description Styling */
-        .feature-description {
-            background: linear-gradient(135deg, #fff, #f0f8ff);
-            border-left: 4px solid #87ceeb;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 20px 0;
-            font-style: italic;
-            color: #5a5a5a;
-        }
-
-        .dance-description {
-            background: linear-gradient(135deg, #fff, #fff5f7);
-            border-left: 4px solid #ff6b93;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 20px 0;
-            font-style: italic;
-            color: #5a5a5a;
+            height: 15px;
+            pointer-events: none;
+            z-index: 999;
         }
 
         /* Navigation */
@@ -453,66 +474,96 @@
         }
 
         .nav-text {
-            color: var(--accent-color);
+            color: #ff6b93;
             font-size: 0.9rem;
             opacity: 0.7;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255,107,147,0.5);
         }
 
         .nav-dots {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-top: 10px;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         .dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: rgba(255, 107, 147, 0.3);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #ff6b93;
+            transition: 0.3s;
         }
 
         .dot.active {
-            background: var(--accent-color);
-            transform: scale(1.2);
+            transform: scale(1.3);
+        }
+
+        .dot.active::before {
+            left: 0;
         }
 
         /* Progress indicator */
         .progress-bar {
-            width: 200px;
-            height: 3px;
+            width: 250px;
+            height: 4px;
             background: rgba(255, 107, 147, 0.2);
             border-radius: 10px;
             margin: 15px auto;
             overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: progressShine 2s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .progress-fill {
             height: 100%;
-            background: var(--accent-color);
+            background: linear-gradient(90deg, #ff6b93, #ff8fab);
             width: 0%;
             transition: width 0.5s ease;
+            box-shadow: 0 0 20px rgba(255,107,147,0.5);
         }
 
-        /* Background decorations */
-        .bg-decoration {
-            position: fixed;
-            font-size: 25px;
-            opacity: 0.2;
+        /* Background stars */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
             z-index: 0;
-            animation: floatAround 25s infinite linear;
-            pointer-events: none;
         }
 
-        @keyframes floatAround {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            100% {
-                transform: translate(100px, 100vh) rotate(360deg);
-            }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
         /* Click indicator */
@@ -521,72 +572,29 @@
             bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            color: var(--accent-color);
+            color: #ff6b93;
             font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 10px;
             animation: pulse 2s infinite;
             z-index: 5;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .click-indicator span {
+            animation: bounce 1s infinite;
         }
 
-        /* Final slide */
-        .final-slide {
-            background: linear-gradient(135deg, #fff, #fff5f7);
-            border: 2px dashed var(--warm-pink);
-        }
-
-        .final-heart {
-            font-size: 70px;
-            margin: 20px 0;
-            animation: floatUpDown 3s infinite ease-in-out;
-            color: var(--accent-color);
-        }
-
-        @keyframes floatUpDown {
+        @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-5px); }
         }
 
-        /* Audio player for background music */
-        .audio-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            background: white;
-            border-radius: 50px;
-            padding: 10px 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .audio-btn {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-        }
-
-        .audio-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* Responsive adjustments */
+        /* Responsive */
         @media (max-width: 600px) {
             .slide {
                 width: 95%;
@@ -594,61 +602,73 @@
             }
             
             .slide-title {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
             
             .slide-message {
-                font-size: 1.05rem;
+                font-size: 1.1rem;
                 padding: 20px;
             }
             
-            .audio-controls {
-                top: 10px;
-                right: 10px;
-                padding: 8px 12px;
+            .teddy-container {
+                width: 80px;
+                height: 120px;
+                bottom: 100px;
+                right: 20px;
             }
             
-            .teddy-container, .gift-container, .cake-container {
-                transform: scale(0.8);
+            .teddy {
+                width: 60px;
+                height: 90px;
             }
-        }
-
-        /* Animation for opening gift */
-        @keyframes openGift {
-            0% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.1); }
-            100% { transform: translate(-50%, -50%) scale(0); }
-        }
-
-        /* Wish text animation */
-        .wish-text {
-            font-size: 1.3rem;
-            color: #ff6b93;
-            margin: 20px 0;
-            animation: colorChange 3s infinite;
-        }
-
-        @keyframes colorChange {
-            0% { color: #ff6b93; }
-            50% { color: #ff8fab; }
-            100% { color: #ff6b93; }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-    <!-- Background music controls -->
-    <div class="audio-controls">
-        <button id="playAudio" class="audio-btn" title="Play background music">
-            <i class="fas fa-play"></i>
-        </button>
-        <span style="font-size: 0.9rem; color: var(--accent-color);">Music</span>
+    <!-- Hidden Media Elements -->
+    <!-- FIRST IMAGE -->
+    <img id="img1" class="hidden" src="IMG_2247.jpeg" alt="Birthday Photo 1">
+
+    <!-- SECOND IMAGE -->
+    <img id="img2" class="hidden" src="IMG_2808.jpeg" alt="Birthday Photo 2">
+
+    <!-- FIRST VIDEO -->
+    <video id="vid1" class="hidden" controls>
+        <source src="688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- SECOND VIDEO -->
+    <video id="vid2" class="hidden" controls>
+        <source src="9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Background stars -->
+    <div id="stars"></div>
+
+    <!-- Interactive Teddy Bear -->
+    <div class="teddy-container" id="teddyContainer">
+        <div class="teddy">
+            <div class="teddy-ear left"></div>
+            <div class="teddy-ear right"></div>
+            <div class="teddy-eye left"></div>
+            <div class="teddy-eye right"></div>
+            <div class="teddy-nose"></div>
+            <div class="teddy-heart">💖</div>
+            <div class="teddy-arm left"></div>
+            <div class="teddy-arm right"></div>
+        </div>
+        <div class="nav-text" style="position: absolute; bottom: -25px; width: 100px; font-size: 0.8rem;">
+            Tap Teddy for Next
+        </div>
     </div>
 
     <!-- Navigation -->
     <div class="navigation">
-        <div class="nav-text">Click or tap to continue</div>
+        <div class="nav-text">Tap anywhere or click Teddy to continue</div>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
@@ -662,76 +682,87 @@
 
     <!-- SLIDE 1: Title -->
     <div class="slide active" id="slide1">
-        <h1 class="slide-title">For Theju's Special Day 💫</h1>
+        <h1 class="slide-title">For Theju's Special Day ✨</h1>
         <div class="slide-message">
-            A little something made just for your birthday...
+            A beautiful journey created just for your birthday...
         </div>
-        <div class="final-heart">✨</div>
+        <div class="final-heart" style="font-size: 50px; animation: heartFloat 2s infinite;">💫</div>
     </div>
 
     <!-- SLIDE 2: Message 1 -->
     <div class="slide" id="slide2">
         <div class="slide-message">
-            Seeing you celebrate today reminded me of something simple yet beautiful...
+            Seeing you celebrate today reminded me of something beautiful...
         </div>
-        <div style="margin-top: 20px; color: var(--accent-color); font-style: italic;">
-            Happiness looks good on you.
+        <div style="margin-top: 20px; color: #ff6b93; font-style: italic; font-size: 1.3rem;">
+            Happiness looks absolutely stunning on you.
         </div>
     </div>
 
-    <!-- SLIDE 3: Eyes Description -->
+    <!-- SLIDE 3: Dance Description -->
     <div class="slide" id="slide3">
-        <h2 class="slide-title">Your Beautiful Eyes 👀</h2>
-        <div class="feature-description">
-            Your eyes have a special sparkle — like they hold stories of dreams and laughter. 
-            When you smile, they light up with a warmth that feels like sunshine on a perfect day. 
-            There's a depth in them that speaks of kindness and a gentle soul.
-        </div>
-        <div class="teddy-container" id="teddyContainer3"></div>
-    </div>
-
-    <!-- SLIDE 4: Dance Description -->
-    <div class="slide" id="slide4">
-        <h2 class="slide-title">Your Graceful Dance 💃</h2>
+        <h2 class="slide-title">Your Incredible Dance 💃</h2>
         <div class="dance-description">
-            When you dance, it's beautiful to watch. Each movement you do with a fire and 
-            a passion 🔥. You have a great control on the moves which you do which is not
-            easy for anyone .   
+            When you dance it's beautiful to watch. Each and Every move you do is full of fire and passion 🔥. You have a great control on your moves which is not easy for everyone. Your grace and energy on the dance floor is absolutely mesmerizing!
         </div>
-        <div class="teddy-container" id="teddyContainer4"></div>
-    </div>
-
-    <!-- SLIDE 5: Message 3 -->
-    <div class="slide" id="slide5">
-        <div class="slide-message">
-            Moments like these are rare.<br><br>
-            They're the kind you want to remember, to hold onto because they feel real and true.
-        </div>
-        <div class="final-heart">💖</div>
-    </div>
-
-    <!-- SLIDE 6: Teddy Bear Reveal -->
-    <div class="slide" id="slide6">
-        <h2 class="slide-title">A Little Teddy for You 🧸</h2>
-        <div class="teddy-container">
-            <div class="teddy">
-                <div class="teddy-ear left"></div>
-                <div class="teddy-ear right"></div>
-                <div class="teddy-eye left"></div>
-                <div class="teddy-eye right"></div>
-                <div class="teddy-nose"></div>
-                <div class="teddy-heart">💝</div>
+        <div class="media-container" id="danceVideoContainer">
+            <div class="media-placeholder" style="width: 100%; height: 300px; border-radius: 20px; background: linear-gradient(45deg, rgba(255,107,147,0.1), rgba(255,255,255,0.05)); display: flex; flex-direction: column; justify-content: center; align-items: center; color: #ff6b93; font-size: 1.2rem; border: 2px dashed rgba(255,107,147,0.3); margin: 25px 0; position: relative; overflow: hidden;">
+                <i class="fas fa-video"></i>
+                <p>Your Dance Video Here</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">(Your dance videos are loaded below)</p>
             </div>
         </div>
-        <div class="slide-message">
-            Just like this teddy holds a heart for you, I hold a special place of admiration for the wonderful person you are.
+    </div>
+
+    <!-- SLIDE 4: Photo 1 -->
+    <div class="slide" id="slide4">
+        <h2 class="slide-title">A Beautiful Moment 🌸</h2>
+        <div class="media-container">
+            <img class="slide-media" id="displayImg1" alt="Theju's beautiful moment" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <div style="font-style: italic; color: #ff6b93; margin-top: 15px; padding: 10px; background: rgba(255,107,147,0.1); border-radius: 10px;">
+            This is where your smile lights up everything
         </div>
     </div>
 
-    <!-- SLIDE 7: Gift Box -->
+    <!-- SLIDE 5: Message 2 -->
+    <div class="slide" id="slide5">
+        <div class="slide-message">
+            There's a genuine light that comes from you when you're happy.<br><br>
+            It's not something you put on — it's just you being authentically you.
+        </div>
+        <div class="final-heart" style="margin: 20px 0;">✨</div>
+    </div>
+
+    <!-- SLIDE 6: Photo 2 -->
+    <div class="slide" id="slide6">
+        <h2 class="slide-title">Another Special Moment 🌷</h2>
+        <div class="media-container">
+            <img class="slide-media" id="displayImg2" alt="Another special moment" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1494790108755-2616b786d4d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'">
+        </div>
+        <div style="font-style: italic; color: #ff6b93; margin-top: 15px;">
+            Moments worth cherishing forever
+        </div>
+    </div>
+
+    <!-- SLIDE 7: Video 1 -->
     <div class="slide" id="slide7">
-        <h2 class="slide-title">A Special Gift for You 🎁</h2>
-        <div class="gift-container">
+        <h2 class="slide-title">🎥 Your Special Video Moment</h2>
+        <div class="media-container">
+            <video class="slide-media" id="displayVid1" controls playsinline>
+                <source src="688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div style="margin-top: 15px; color: #ff8fab; font-size: 0.9rem;">
+            Tap to play your special memory
+        </div>
+    </div>
+
+    <!-- SLIDE 8: Gift Box -->
+    <div class="slide" id="slide8">
+        <h2 class="slide-title">A Special Surprise 🎁</h2>
+        <div class="gift-container" id="giftContainer">
             <div class="gift-box" id="giftBox"></div>
             <div class="gift-lid" id="giftLid"></div>
             <div class="gift-bow">
@@ -739,140 +770,93 @@
                 <div class="bow-loop left"></div>
                 <div class="bow-loop right"></div>
             </div>
-            <div class="gift-ribbon"></div>
         </div>
         <div class="slide-message">
-            This gift may be virtual, but the thought behind it is very real.
+            Click the gift box to reveal your surprise!
         </div>
     </div>
 
-    <!-- SLIDE 8: Gift Explosion -->
-    <div class="slide" id="slide8">
+    <!-- SLIDE 9: Gift Explosion -->
+    <div class="slide" id="slide9">
         <h2 class="slide-title">Surprise! 🎉</h2>
         <div id="explosionContainer" style="height: 200px; position: relative; margin: 30px 0;"></div>
-        <div class="slide-message special-message">
+        <div class="slide-message" style="background: linear-gradient(135deg, rgba(255,107,147,0.1), rgba(255,215,0,0.1));">
             May your year be filled with colorful moments, joyful surprises, and endless happiness!
         </div>
-        <div class="wish-text">🎈 Happy Birthday! 🎈</div>
-    </div>
-
-    <!-- SLIDE 9: Cake with Candles -->
-    <div class="slide" id="slide9">
-        <h2 class="slide-title">Make a Wish! 🎂</h2>
-        <div class="cake-container">
-            <div class="cake">
-                <div class="cake-layer top"></div>
-                <div class="cake-layer middle"></div>
-                <div class="cake-layer bottom"></div>
-                <div class="candle" style="left: 30px;"></div>
-                <div class="candle" style="left: 60px;"></div>
-                <div class="candle" style="left: 90px;"></div>
-                <div class="candle" style="left: 120px;"></div>
-                <div class="flame" id="cakeFlame"></div>
-            </div>
-        </div>
-        <div class="slide-message">
-            Close your eyes, make a wish, and blow out the candles!<br>
-            <button id="blowButton" style="margin-top: 20px; padding: 10px 25px; background: var(--accent-color); color: white; border: none; border-radius: 25px; font-size: 1.1rem; cursor: pointer;">
-                🎂 Blow the Candles 🎂
-            </button>
+        <div style="font-size: 1.5rem; color: gold; margin-top: 20px; text-shadow: 0 0 10px gold;">
+            🎈 Happy Birthday! 🎈
         </div>
     </div>
 
     <!-- SLIDE 10: Birthday Wishes -->
     <div class="slide" id="slide10">
         <h2 class="slide-title">Birthday Wishes for You 🌟</h2>
-        <div class="slide-message special-message">
+        <div class="slide-message" style="background: linear-gradient(135deg, rgba(255,107,147,0.1), rgba(255,255,255,0.05));">
             May your year be filled with:<br><br>
-            • Laughter that comes from the soul<br>
-            • Dreams that take flight<br>
-            • Love that surrounds you<br>
-            • Moments that become cherished memories<br>
-            • And joy in every little thing
+            <div style="text-align: left; padding-left: 20px;">
+                <div style="margin: 10px 0;">✨ Laughter that comes from the soul</div>
+                <div style="margin: 10px 0;">💫 Dreams that take flight</div>
+                <div style="margin: 10px 0;">❤️ Love that surrounds you</div>
+                <div style="margin: 10px 0;">🌸 Moments that become cherished memories</div>
+                <div style="margin: 10px 0;">🔥 Passion in everything you do</div>
+            </div>
         </div>
-        <div class="final-heart" style="font-size: 50px;">✨🌷💫🌸</div>
     </div>
 
-    <!-- SLIDE 11: Message 4 -->
+    <!-- SLIDE 11: Final Message -->
     <div class="slide" id="slide11">
         <div class="slide-message">
             I admire how you carry yourself — with grace and a quiet strength that doesn't need to announce itself.
         </div>
-        <div style="margin-top: 20px; color: var(--accent-color);">
-            That's something truly special.
+        <div style="margin-top: 25px; color: #ff6b93; font-size: 1.3rem; padding: 15px; background: rgba(255,107,147,0.1); border-radius: 15px;">
+            That's something truly special and rare.
         </div>
     </div>
 
     <!-- SLIDE 12: Heart Transition -->
     <div class="slide" id="slide12">
-        <div class="final-heart">💖</div>
+        <div class="final-heart" style="font-size: 70px;">💖</div>
         <div class="slide-message">
             Seeing you in these moments...<br><br>
-            It made me want to know more about you.
+            It made me want to know more about the amazing person you are.
         </div>
     </div>
 
-    <!-- SLIDE 13: Connection -->
+    <!-- SLIDE 13: Question -->
     <div class="slide connection-slide" id="slide13">
-        <div class="slide-message">
-            There's a curiosity here — about your thoughts, your dreams, the little things that make you smile when no one's watching.
-        </div>
-    </div>
-
-    <!-- SLIDE 14: Question -->
-    <div class="slide connection-slide" id="slide14">
         <div class="slide-message">
             If we were to talk more, what would you want to share first?
         </div>
-        <div class="options-container">
-            <button class="option-btn" onclick="selectOption(1, this)">Your passions ✨</button>
-            <button class="option-btn" onclick="selectOption(2, this)">Your stories 📖</button>
-            <button class="option-btn" onclick="selectOption(3, this)">Your thoughts 💭</button>
+        <div class="options-container" style="display: flex; flex-direction: column; gap: 15px; margin: 25px 0;">
+            <button class="option-btn" onclick="selectOption(1, this)" style="padding: 15px 30px; border: 2px solid #ff6b93; background: transparent; color: #ff6b93; border-radius: 50px; cursor: pointer; font-size: 1rem; transition: all 0.3s;">Your passions ✨</button>
+            <button class="option-btn" onclick="selectOption(2, this)" style="padding: 15px 30px; border: 2px solid #ff6b93; background: transparent; color: #ff6b93; border-radius: 50px; cursor: pointer; font-size: 1rem; transition: all 0.3s;">Your stories 📖</button>
+            <button class="option-btn" onclick="selectOption(3, this)" style="padding: 15px 30px; border: 2px solid #ff6b93; background: transparent; color: #ff6b93; border-radius: 50px; cursor: pointer; font-size: 1rem; transition: all 0.3s;">Your dreams 💭</button>
         </div>
     </div>
 
-    <!-- SLIDE 15: Gentle Ask -->
-    <div class="slide connection-slide" id="slide15">
-        <div class="slide-message">
-            Would you be open to a conversation sometime?<br><br>
-            No pressure, just two people getting to know each other.
-        </div>
-        <div class="connection-question">
-            💫 The choice is always yours 💫
-        </div>
-    </div>
-
-    <!-- SLIDE 16: Final -->
-    <div class="slide final-slide" id="slide16">
-        <div class="final-heart">💝</div>
+    <!-- SLIDE 14: Final -->
+    <div class="slide" id="slide14" style="background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,107,147,0.05)); border: 2px dashed #ff6b93;">
+        <div class="final-heart" style="font-size: 80px; animation: floatUpDown 3s infinite ease-in-out; filter: drop-shadow(0 0 20px rgba(255,107,147,0.5));">💝</div>
         <div class="slide-message">
             Whatever happens next, I'm grateful I got to witness your special day.<br><br>
-            You deserve all the happiness in the world.
+            You deserve all the happiness in the world and more.
         </div>
-        <div class="connection-question" style="margin-top: 30px;">
+        <div style="margin-top: 30px; color: #ff6b93; font-size: 1.5rem; padding: 20px; background: rgba(255,107,147,0.1); border-radius: 15px;">
             Happy Birthday, Thejuuuuu 🌸
         </div>
-        <div style="margin-top: 20px; font-size: 0.9rem; color: var(--accent-color); opacity: 0.8;">
-            Made with care for you
+        <div style="margin-top: 20px; font-size: 0.9rem; color: rgba(255,255,255,0.6);">
+            Made with ❤️ for your special day
         </div>
     </div>
-
-    <!-- Audio for background music -->
-    <audio id="backgroundMusic" loop>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
-    </audio>
 
     <script>
         // Main slideshow functionality
         let currentSlide = 1;
-        const totalSlides = 16;
+        const totalSlides = 14;
         const slides = document.querySelectorAll('.slide');
-        let isMusicPlaying = false;
-        const music = document.getElementById('backgroundMusic');
-        const playButton = document.getElementById('playAudio');
-        const playIcon = playButton.querySelector('i');
-        let balloons = [];
-        let confettiPieces = [];
+        let isExploding = false;
+        let particles = [];
+        let confetti = [];
 
         // Create navigation dots
         const navDots = document.getElementById('navDots');
@@ -880,7 +864,55 @@
             const dot = document.createElement('div');
             dot.className = 'dot';
             dot.dataset.slide = i;
+            if (i === 1) dot.classList.add('active');
             navDots.appendChild(dot);
+        }
+
+        // Create background stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                star.style.animationDuration = `${2 + Math.random() * 4}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Load media from hidden elements
+        function loadMedia() {
+            const img1 = document.getElementById('img1');
+            const img2 = document.getElementById('img2');
+            const vid1 = document.getElementById('vid1');
+            const vid2 = document.getElementById('vid2');
+            
+            if (img1 && img1.src) {
+                const displayImg1 = document.getElementById('displayImg1');
+                if (displayImg1) {
+                    displayImg1.src = img1.src;
+                    displayImg1.alt = img1.alt;
+                }
+            }
+            
+            if (img2 && img2.src) {
+                const displayImg2 = document.getElementById('displayImg2');
+                if (displayImg2) {
+                    displayImg2.src = img2.src;
+                    displayImg2.alt = img2.alt;
+                }
+            }
+            
+            if (vid1 && vid1.querySelector('source')) {
+                const displayVid1 = document.getElementById('displayVid1');
+                if (displayVid1) {
+                    displayVid1.innerHTML = vid1.innerHTML;
+                }
+            }
         }
 
         // Update progress
@@ -899,7 +931,9 @@
             
             // Update click indicator
             if (currentSlide >= totalSlides) {
-                document.getElementById('clickIndicator').style.opacity = '0.3';
+                document.getElementById('clickIndicator').style.opacity = '0.5';
+            } else {
+                document.getElementById('clickIndicator').style.opacity = '1';
             }
         }
 
@@ -925,22 +959,18 @@
             
             // Add special animations based on slide
             setTimeout(() => {
-                if (slideNumber === 3 || slideNumber === 4) {
-                    createTeddyBear(slideNumber);
-                } else if (slideNumber === 6) {
-                    // Teddy already shown
-                } else if (slideNumber === 7) {
-                    // Gift box - add opening animation on click
+                if (slideNumber === 8) {
                     setupGiftOpening();
-                } else if (slideNumber === 8) {
-                    createExplosion();
                 } else if (slideNumber === 9) {
-                    setupCakeBlowing();
+                    createExplosion();
                 }
+                
+                // Reset teddy position
+                resetTeddy();
             }, 500);
             
-            // Add gentle click sound
-            playGentleSound();
+            // Add gentle click effect
+            createClickEffect();
         }
 
         // Next slide function
@@ -960,184 +990,337 @@
             }
         }
 
-        // Create teddy bear
-        function createTeddyBear(slideNum) {
-            const container = document.getElementById(`teddyContainer${slideNum}`);
-            if (!container) return;
+        // Create click effect
+        function createClickEffect() {
+            const effect = document.createElement('div');
+            effect.style.position = 'fixed';
+            effect.style.width = '20px';
+            effect.style.height = '20px';
+            effect.style.borderRadius = '50%';
+            effect.style.background = 'radial-gradient(circle, #ff6b93, transparent)';
+            effect.style.pointerEvents = 'none';
+            effect.style.zIndex = '9999';
+            effect.style.transform = 'translate(-50%, -50%)';
+            effect.style.animation = 'clickEffect 0.5s ease-out forwards';
             
-            container.innerHTML = '';
+            document.body.appendChild(effect);
             
-            const teddy = document.createElement('div');
-            teddy.className = 'teddy';
+            // Random position around cursor
+            const x = 50 + (Math.random() * 20 - 10);
+            const y = 50 + (Math.random() * 20 - 10);
+            effect.style.left = `${x}%`;
+            effect.style.top = `${y}%`;
             
-            const leftEar = document.createElement('div');
-            leftEar.className = 'teddy-ear left';
+            // Add animation keyframes
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes clickEffect {
+                    0% {
+                        transform: translate(-50%, -50%) scale(0);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translate(-50%, -50%) scale(3);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
             
-            const rightEar = document.createElement('div');
-            rightEar.className = 'teddy-ear right';
+            setTimeout(() => {
+                document.body.removeChild(effect);
+                document.head.removeChild(style);
+            }, 500);
+        }
+
+        // Reset teddy position and animation
+        function resetTeddy() {
+            const teddy = document.querySelector('.teddy');
+            if (teddy) {
+                teddy.style.animation = 'none';
+                setTimeout(() => {
+                    teddy.style.animation = 'teddyFloat 4s infinite ease-in-out';
+                }, 10);
+            }
+        }
+
+        // Teddy swipe animation
+        function teddySwipe() {
+            const teddy = document.querySelector('.teddy');
+            const teddyContainer = document.getElementById('teddyContainer');
             
-            const leftEye = document.createElement('div');
-            leftEye.className = 'teddy-eye left';
+            // Animate teddy swipe
+            teddy.style.animation = 'none';
+            teddyContainer.style.transform = 'translateX(100px) rotate(10deg)';
+            teddy.style.transform = 'rotate(-30deg)';
             
-            const rightEye = document.createElement('div');
-            rightEye.className = 'teddy-eye right';
+            // Create swipe trail
+            createSwipeTrail();
             
-            const nose = document.createElement('div');
-            nose.className = 'teddy-nose';
-            
-            const heart = document.createElement('div');
-            heart.className = 'teddy-heart';
-            heart.innerHTML = '💝';
-            
-            teddy.appendChild(leftEar);
-            teddy.appendChild(rightEar);
-            teddy.appendChild(leftEye);
-            teddy.appendChild(rightEye);
-            teddy.appendChild(nose);
-            teddy.appendChild(heart);
-            
-            container.appendChild(teddy);
+            // Next slide after animation
+            setTimeout(() => {
+                nextSlide();
+                
+                // Reset teddy position
+                setTimeout(() => {
+                    teddyContainer.style.transform = 'none';
+                    teddy.style.transform = 'none';
+                    teddy.style.animation = 'teddyFloat 4s infinite ease-in-out';
+                }, 300);
+            }, 300);
+        }
+
+        // Create swipe trail effect
+        function createSwipeTrail() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const trail = document.createElement('div');
+                    trail.style.position = 'fixed';
+                    trail.style.width = '30px';
+                    trail.style.height = '30px';
+                    trail.style.borderRadius = '50%';
+                    trail.style.background = '#ff6b93';
+                    trail.style.opacity = '0.5';
+                    trail.style.pointerEvents = 'none';
+                    trail.style.zIndex = '999';
+                    trail.style.transform = 'translate(-50%, -50%)';
+                    
+                    const teddyRect = document.querySelector('.teddy-container').getBoundingClientRect();
+                    trail.style.left = `${teddyRect.left + teddyRect.width/2 - i * 15}px`;
+                    trail.style.top = `${teddyRect.top + teddyRect.height/2}px`;
+                    
+                    document.body.appendChild(trail);
+                    
+                    // Animate trail
+                    trail.animate([
+                        { transform: 'translate(-50%, -50%) scale(1)', opacity: 0.5 },
+                        { transform: 'translate(-50%, -50%) scale(0)', opacity: 0 }
+                    ], {
+                        duration: 300,
+                        easing: 'ease-out'
+                    });
+                    
+                    setTimeout(() => {
+                        if (trail.parentNode) {
+                            trail.parentNode.removeChild(trail);
+                        }
+                    }, 300);
+                }, i * 50);
+            }
         }
 
         // Setup gift opening
         function setupGiftOpening() {
             const giftBox = document.getElementById('giftBox');
             const giftLid = document.getElementById('giftLid');
+            const giftContainer = document.getElementById('giftContainer');
             
             if (!giftBox || !giftLid) return;
             
             // Make gift clickable
-            giftBox.style.cursor = 'pointer';
-            giftLid.style.cursor = 'pointer';
+            giftContainer.style.cursor = 'pointer';
             
             const openGift = () => {
+                if (isExploding) return;
+                isExploding = true;
+                
                 // Animate gift opening
-                giftBox.style.animation = 'openGift 1s forwards';
-                giftLid.style.animation = 'openGift 1s forwards';
+                giftBox.animate([
+                    { transform: 'translate(-50%, -50%) scale(1)' },
+                    { transform: 'translate(-50%, -50%) scale(1.2)' },
+                    { transform: 'translate(-50%, -50%) scale(0)' }
+                ], {
+                    duration: 800,
+                    easing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
+                });
+                
+                giftLid.animate([
+                    { transform: 'translate(-50%, -50%)' },
+                    { transform: 'translate(-50%, -100%) rotate(45deg)' }
+                ], {
+                    duration: 600,
+                    easing: 'ease-out'
+                });
                 
                 // Create explosion effect
                 setTimeout(() => {
                     createExplosion();
                     setTimeout(() => {
                         nextSlide();
+                        isExploding = false;
                     }, 2000);
-                }, 800);
+                }, 400);
             };
             
-            giftBox.addEventListener('click', openGift);
-            giftLid.addEventListener('click', openGift);
+            giftContainer.addEventListener('click', openGift);
         }
 
-        // Create explosion of balloons and confetti
+        // Create explosion of particles and confetti
         function createExplosion() {
             const container = document.getElementById('explosionContainer') || document.body;
             
-            // Clear previous balloons and confetti
-            balloons.forEach(balloon => {
-                if (balloon.parentNode) {
-                    balloon.parentNode.removeChild(balloon);
+            // Clear previous particles
+            particles.forEach(particle => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
                 }
             });
-            balloons = [];
+            particles = [];
             
-            confettiPieces.forEach(confetti => {
-                if (confetti.parentNode) {
-                    confetti.parentNode.removeChild(confetti);
+            confetti.forEach(confettiPiece => {
+                if (confettiPiece.parentNode) {
+                    confettiPiece.parentNode.removeChild(confettiPiece);
                 }
             });
-            confettiPieces = [];
+            confetti = [];
             
-            // Create balloons
-            const colors = ['#ff6b93', '#ff8fab', '#ffb8c6', '#ffd700', '#87ceeb', '#98fb98'];
+            // Create particles
+            const colors = ['#ff6b93', '#ff8fab', '#ffd700', '#87ceeb', '#98fb98', '#dda0dd'];
+            const shapes = ['circle', 'square', 'triangle'];
             
-            for (let i = 0; i < 20; i++) {
-                const balloon = document.createElement('div');
-                balloon.className = 'balloon';
-                balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
-                balloon.style.left = `${Math.random() * 100}%`;
-                balloon.style.animationDelay = `${Math.random() * 2}s`;
-                balloon.style.animationDuration = `${10 + Math.random() * 10}s`;
+            for (let i = 0; i < 100; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
                 
-                container.appendChild(balloon);
-                balloons.push(balloon);
+                // Random properties
+                const size = Math.random() * 15 + 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                
+                // Shape variations
+                if (shape === 'square') {
+                    particle.style.borderRadius = '3px';
+                } else if (shape === 'triangle') {
+                    particle.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+                    particle.style.background = 'transparent';
+                    particle.style.borderBottom = `${size}px solid ${color}`;
+                    particle.style.borderLeft = `${size/2}px solid transparent`;
+                    particle.style.borderRight = `${size/2}px solid transparent`;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = '0';
+                }
+                
+                // Random position from center
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 200 + 50;
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+                
+                particle.style.left = `calc(50% + ${x}px)`;
+                particle.style.top = `calc(50% + ${y}px)`;
+                
+                // Animation
+                const anim = particle.animate([
+                    { 
+                        transform: 'translate(-50%, -50%) scale(0) rotate(0deg)',
+                        opacity: 1 
+                    },
+                    { 
+                        transform: `translate(-50%, -50%) scale(1) rotate(${Math.random() * 360}deg)`,
+                        opacity: 1 
+                    },
+                    { 
+                        transform: `translate(calc(-50% + ${x*2}px), calc(-50% + ${y*2}px)) scale(0) rotate(${Math.random() * 720}deg)`,
+                        opacity: 0 
+                    }
+                ], {
+                    duration: Math.random() * 1000 + 1000,
+                    easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+                });
+                
+                container.appendChild(particle);
+                particles.push(particle);
+                
+                // Remove after animation
+                anim.onfinish = () => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                };
             }
             
             // Create confetti
-            const confettiTypes = ['triangle', 'circle', 'star'];
-            
             for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = `confetti ${confettiTypes[Math.floor(Math.random() * confettiTypes.length)]}`;
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.left = `${Math.random() * 100}%`;
-                confetti.style.animation = `confettiFall ${3 + Math.random() * 4}s linear forwards`;
-                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
-                confetti.style.width = `${8 + Math.random() * 12}px`;
-                confetti.style.height = confetti.style.width;
+                const confettiPiece = document.createElement('div');
+                confettiPiece.className = 'confetti';
                 
-                container.appendChild(confetti);
-                confettiPieces.push(confetti);
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const rotation = Math.random() * 360;
+                
+                confettiPiece.style.background = color;
+                confettiPiece.style.transform = `rotate(${rotation}deg)`;
+                confettiPiece.style.left = `${Math.random() * 100}%`;
+                confettiPiece.style.top = `${Math.random() * 100}%`;
+                
+                // Random shape
+                const shapeType = Math.random();
+                if (shapeType < 0.3) {
+                    confettiPiece.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+                } else if (shapeType < 0.6) {
+                    confettiPiece.style.borderRadius = '50%';
+                } else {
+                    confettiPiece.style.clipPath = 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)';
+                }
+                
+                // Falling animation
+                const anim = confettiPiece.animate([
+                    { 
+                        transform: `translateY(-100px) rotate(${rotation}deg)`,
+                        opacity: 1 
+                    },
+                    { 
+                        transform: `translateY(100vh) rotate(${rotation + 360}deg)`,
+                        opacity: 0 
+                    }
+                ], {
+                    duration: Math.random() * 2000 + 2000,
+                    delay: Math.random() * 1000,
+                    easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)'
+                });
+                
+                container.appendChild(confettiPiece);
+                confetti.push(confettiPiece);
+                
+                // Remove after animation
+                anim.onfinish = () => {
+                    if (confettiPiece.parentNode) {
+                        confettiPiece.remove();
+                    }
+                };
             }
             
-            // Play pop sound
-            playPopSound();
-        }
-
-        // Setup cake blowing
-        function setupCakeBlowing() {
-            const blowButton = document.getElementById('blowButton');
-            const cakeFlame = document.getElementById('cakeFlame');
+            // Create flash effect
+            const flash = document.createElement('div');
+            flash.style.position = 'fixed';
+            flash.style.top = '0';
+            flash.style.left = '0';
+            flash.style.width = '100%';
+            flash.style.height = '100%';
+            flash.style.background = 'white';
+            flash.style.opacity = '0';
+            flash.style.pointerEvents = 'none';
+            flash.style.zIndex = '9998';
             
-            if (!blowButton || !cakeFlame) return;
+            document.body.appendChild(flash);
             
-            blowButton.addEventListener('click', () => {
-                // Animate flame going out
-                cakeFlame.style.animation = 'none';
-                cakeFlame.style.transform = 'translateX(-50%) scale(0)';
-                cakeFlame.style.transition = 'transform 0.5s ease-out';
-                cakeFlame.style.opacity = '0';
-                
-                // Change button text
-                blowButton.innerHTML = '🎂 Wish Made! 🎂';
-                blowButton.style.background = '#98fb98';
-                blowButton.disabled = true;
-                
-                // Create floating wishes
-                createFloatingWishes();
-                
-                // Play blowing sound
-                playBlowSound();
-                
-                // Auto advance after delay
-                setTimeout(() => {
-                    nextSlide();
-                }, 3000);
+            flash.animate([
+                { opacity: 0 },
+                { opacity: 0.8 },
+                { opacity: 0 }
+            ], {
+                duration: 300,
+                easing: 'ease-out'
             });
-        }
-
-        // Create floating birthday wishes
-        function createFloatingWishes() {
-            const wishes = ['Happy Birthday!', 'Make a Wish!', 'All the Best!', 'Stay Blessed!', 'Enjoy Your Day!'];
-            const container = document.getElementById('slide9');
             
-            wishes.forEach((wish, index) => {
-                const wishElement = document.createElement('div');
-                wishElement.className = 'wish-text';
-                wishElement.innerHTML = wish;
-                wishElement.style.position = 'absolute';
-                wishElement.style.left = `${20 + index * 15}%`;
-                wishElement.style.bottom = '0';
-                wishElement.style.animation = `floatUpDown ${2 + Math.random() * 2}s infinite ease-in-out`;
-                wishElement.style.animationDelay = `${index * 0.3}s`;
-                wishElement.style.opacity = '0';
-                wishElement.style.transition = 'opacity 1s';
-                
-                container.appendChild(wishElement);
-                
-                setTimeout(() => {
-                    wishElement.style.opacity = '1';
-                }, index * 200);
-            });
+            setTimeout(() => {
+                if (flash.parentNode) {
+                    flash.parentNode.removeChild(flash);
+                }
+            }, 500);
         }
 
         // Option selection
@@ -1146,143 +1329,80 @@
             button.style.background = '#ff6b93';
             button.style.color = 'white';
             button.style.transform = 'scale(1.05)';
+            button.style.boxShadow = '0 0 20px rgba(255,107,147,0.5)';
             
             // Disable other buttons
             document.querySelectorAll('.option-btn').forEach(btn => {
                 btn.disabled = true;
                 btn.style.cursor = 'default';
                 if (btn !== button) {
-                    btn.style.opacity = '0.5';
+                    btn.style.opacity = '0.3';
                 }
             });
             
             // Responses
             const responses = [
-                "I'd love to hear about what moves you.",
-                "Every story matters. I'm here to listen.",
-                "The way you think is something special."
+                "I'd love to hear about what moves you and sets your soul on fire.",
+                "Every story you tell becomes more interesting because it's coming from you.",
+                "The way you think and see the world is genuinely fascinating."
             ];
             
-            // Update slide content
-            const slide14 = document.getElementById('slide14');
-            slide14.innerHTML = `
-                <div class="slide-message">
-                    "${responses[optionNum - 1]}"
-                    <div style="margin-top: 25px; font-style: italic; color: #ff6b93;">
-                        ~ A genuine thought
-                    </div>
+            // Update slide content with animation
+            const slide13 = document.getElementById('slide13');
+            slide13.innerHTML = '';
+            
+            // Create new content with animation
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'slide-message';
+            messageDiv.innerHTML = `
+                "${responses[optionNum - 1]}"
+                <div style="margin-top: 25px; font-style: italic; color: #ff6b93; font-size: 1.1rem;">
+                    ~ A genuine thought
                 </div>
-                <div class="final-heart" style="margin-top: 20px;">💫</div>
             `;
+            
+            slide13.appendChild(messageDiv);
+            
+            // Add floating hearts
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💖';
+                    heart.style.position = 'absolute';
+                    heart.style.fontSize = '25px';
+                    heart.style.opacity = '0';
+                    heart.style.left = `${Math.random() * 80 + 10}%`;
+                    heart.style.top = `${Math.random() * 80 + 10}%`;
+                    heart.style.animation = `heartFloat 2s ease-out forwards`;
+                    
+                    slide13.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.parentNode.removeChild(heart);
+                        }
+                    }, 2000);
+                }, i * 300);
+            }
             
             // Auto-proceed to next slide after delay
             setTimeout(() => {
                 nextSlide();
-            }, 2500);
+            }, 3000);
         }
 
-        // Gentle click sound
-        function playGentleSound() {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime);
-                oscillator.frequency.exponentialRampToValueAtTime(523.25, audioContext.currentTime + 0.1);
-                
-                gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.15);
-                
-                oscillator.start();
-                oscillator.stop(audioContext.currentTime + 0.15);
-            } catch (e) {
-                // Sound not supported - silent fail
-            }
-        }
-
-        // Pop sound for explosion
-        function playPopSound() {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(() => {
-                        const oscillator = audioContext.createOscillator();
-                        const gainNode = audioContext.createGain();
-                        
-                        oscillator.connect(gainNode);
-                        gainNode.connect(audioContext.destination);
-                        
-                        oscillator.frequency.setValueAtTime(200 + Math.random() * 300, audioContext.currentTime);
-                        oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.1);
-                        
-                        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
-                        
-                        oscillator.start();
-                        oscillator.stop(audioContext.currentTime + 0.2);
-                    }, i * 100);
-                }
-            } catch (e) {
-                // Sound not supported
-            }
-        }
-
-        // Blow sound for candles
-        function playBlowSound() {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
-                oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.5);
-                
-                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.6);
-                
-                oscillator.start();
-                oscillator.stop(audioContext.currentTime + 0.6);
-            } catch (e) {
-                // Sound not supported
-            }
-        }
-
-        // Music control
-        function toggleMusic() {
-            if (isMusicPlaying) {
-                music.pause();
-                playIcon.className = 'fas fa-play';
-                isMusicPlaying = false;
-            } else {
-                music.play().then(() => {
-                    playIcon.className = 'fas fa-pause';
-                    isMusicPlaying = true;
-                }).catch(e => {
-                    console.log("Auto-play prevented. User interaction required.");
-                    playButton.title = "Click to play music";
-                });
-            }
-        }
+        // Teddy click event
+        document.getElementById('teddyContainer').addEventListener('click', teddySwipe);
 
         // Click anywhere to advance (except special elements)
         document.addEventListener('click', (e) => {
             // Don't advance if clicking on special elements
             if (!e.target.classList.contains('option-btn') && 
-                !e.target.closest('.audio-controls') &&
-                !e.target.classList.contains('audio-btn') &&
-                !e.target.closest('.teddy') &&
-                !e.target.closest('.gift-box') &&
-                !e.target.closest('.gift-lid') &&
-                e.target.id !== 'blowButton' &&
-                !e.target.closest('#blowButton')) {
+                !e.target.closest('#teddyContainer') &&
+                !e.target.closest('.gift-container') &&
+                e.target.id !== 'giftBox' &&
+                e.target.id !== 'giftLid') {
+                createClickEffect();
                 nextSlide();
             }
         });
@@ -1290,13 +1410,13 @@
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                createClickEffect();
                 nextSlide();
                 e.preventDefault();
             } else if (e.key === 'ArrowLeft') {
+                createClickEffect();
                 prevSlide();
                 e.preventDefault();
-            } else if (e.key === 'm' || e.key === 'M') {
-                toggleMusic();
             }
         });
 
@@ -1325,40 +1445,56 @@
             if (Math.abs(touchEndX - touchStartX) > Math.abs(touchEndY - touchStartY)) {
                 if (touchEndX < touchStartX - swipeThreshold) {
                     // Swipe left - next
+                    createClickEffect();
                     nextSlide();
                 } else if (touchEndX > touchStartX + swipeThreshold) {
                     // Swipe right - previous
+                    createClickEffect();
                     prevSlide();
                 }
             }
         }
 
         // Initialize
+        createStars();
+        loadMedia();
         updateProgress();
-        playButton.addEventListener('click', toggleMusic);
 
-        // Add background decorations
-        function addDecorations() {
-            const decorations = ['🌸', '✨', '💫', '🌷', '💖', '⭐', '🌼', '🎀'];
-            const body = document.body;
+        // Add floating emojis in background
+        function addFloatingEmojis() {
+            const emojis = ['🌸', '✨', '💫', '🌷', '💖', '⭐', '🌼', '🎀', '🔥', '💃'];
             
-            for (let i = 0; i < 15; i++) {
-                const decor = document.createElement('div');
-                decor.className = 'bg-decoration';
-                decor.innerHTML = decorations[i % decorations.length];
-                decor.style.left = `${Math.random() * 100}%`;
-                decor.style.top = `${Math.random() * 100}%`;
-                decor.style.animationDelay = `${Math.random() * 5}s`;
-                decor.style.fontSize = `${20 + Math.random() * 20}px`;
-                decor.style.opacity = `${0.1 + Math.random() * 0.15}`;
-                decor.style.animationDuration = `${20 + Math.random() * 20}s`;
-                body.appendChild(decor);
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.position = 'fixed';
+                    emoji.style.fontSize = `${Math.random() * 20 + 15}px`;
+                    emoji.style.opacity = Math.random() * 0.1 + 0.05;
+                    emoji.style.left = `${Math.random() * 100}%`;
+                    emoji.style.top = `${Math.random() * 100}%`;
+                    emoji.style.zIndex = '0';
+                    emoji.style.pointerEvents = 'none';
+                    
+                    // Floating animation
+                    const duration = Math.random() * 20 + 20;
+                    emoji.animate([
+                        { transform: 'translateY(0) rotate(0deg)' },
+                        { transform: `translateY(-100vh) rotate(${Math.random() * 360}deg)` }
+                    ], {
+                        duration: duration * 1000,
+                        easing: 'linear',
+                        iterations: Infinity
+                    });
+                    
+                    document.body.appendChild(emoji);
+                }, i * 500);
             }
         }
 
-        addDecorations();
+        addFloatingEmojis();
 
-        // Auto-advance after 30 seconds on the first slide
+        // Auto-advance after 30 seconds on first slide
         setTimeout(() => {
             if (currentSlide === 1) {
                 document.getElementById('clickIndicator').style.animation = 'pulse 1s infinite';
