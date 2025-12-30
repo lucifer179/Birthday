@@ -3,67 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Thejuuuuu 💖</title>
+<title>For Theju 💫</title>
 <style>
+:root {
+    --soft-pink: #fff5f7;
+    --warm-pink: #ffb8c6;
+    --gentle-text: #5a5a5a;
+    --soft-shadow: rgba(255, 182, 193, 0.15);
+}
+
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(-45deg, #ffdde1, #ee9ca7, #ffb8c6, #ffe0e6);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    background: linear-gradient(135deg, #fff5f7, #ffeef2);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Georgia', 'Times New Roman', serif;
     overflow: hidden;
+    position: relative;
 }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Floating hearts background */
-.hearts-bg {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.heart-bg {
+/* Subtle background elements */
+.bg-sparkle {
     position: absolute;
     font-size: 20px;
     opacity: 0.3;
-    animation: float 8s linear infinite;
+    animation: sparkleFloat 20s infinite linear;
+    z-index: 0;
 }
 
-@keyframes float {
-    0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0.3;
-    }
-    100% {
-        transform: translateY(-100px) rotate(360deg);
-        opacity: 0;
-    }
+@keyframes sparkleFloat {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-100px) rotate(180deg); }
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    z-index: 1;
+    position: relative;
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    width: 90%;
-    max-width: 400px;
-    padding: 30px;
-    border-radius: 30px;
+    background: white;
+    padding: 35px;
+    border-radius: 25px;
     text-align: center;
     box-shadow: 
-        0 20px 40px rgba(233, 30, 99, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.3);
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 1;
+        0 15px 35px var(--soft-shadow),
+        inset 0 0 0 1px rgba(255, 184, 198, 0.2);
+    transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
 }
@@ -72,317 +62,524 @@ body {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 100%;
-    height: 5px;
-    background: linear-gradient(90deg, transparent, #e91e63, transparent);
-    animation: shimmer 3s infinite;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--warm-pink), 
+        transparent);
 }
 
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
-.card.open {
-    transform: scale(1.05) rotate(1deg);
-    box-shadow: 
-        0 25px 50px rgba(233, 30, 99, 0.4),
-        0 0 30px rgba(255, 105, 180, 0.6);
-}
-
-.hidden { 
-    display: none; 
-}
-
-h1 { 
-    color: #e91e63;
-    margin-bottom: 20px;
-    font-size: 28px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-p {
-    font-size: 17px;
-    line-height: 1.8;
-    color: #555;
-    margin: 20px 0;
-    padding: 15px;
-    background: rgba(255, 228, 230, 0.3);
-    border-radius: 15px;
-    transform: translateY(20px);
+/* Hidden states */
+.hidden {
     opacity: 0;
-    transition: all 0.8s ease;
+    transform: translateY(15px);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
 }
 
-p.show {
+.visible {
+    opacity: 1;
     transform: translateY(0);
-    opacity: 1;
 }
 
-.heart {
-    font-size: 50px;
-    margin: 20px 0;
-    display: inline-block;
-    animation: heartbeat 1.3s infinite, floatHeart 3s ease-in-out infinite;
+/* Typography */
+.title {
+    color: #ff6b93;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    font-weight: normal;
+    letter-spacing: 1px;
 }
 
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
+.message {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--gentle-text);
+    margin: 25px 0;
+    padding: 22px;
+    background: var(--soft-pink);
+    border-radius: 18px;
+    border-left: 4px solid var(--warm-pink);
+    position: relative;
 }
 
-@keyframes floatHeart {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+.message::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        var(--warm-pink), 
+        transparent);
 }
 
-img, video {
+/* Media containers */
+.media-container {
+    margin: 30px 0;
+    position: relative;
+}
+
+.media-container img,
+.media-container video {
     width: 100%;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 3px solid white;
+    transition: transform 0.5s ease;
+}
+
+.media-container img:hover,
+.media-container video:hover {
+    transform: scale(1.01);
+}
+
+/* Gentle reveal for photos/videos */
+.media-reveal {
+    animation: gentleReveal 0.8s ease-out forwards;
+}
+
+@keyframes gentleReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Connection section - appears after videos */
+.connection-container {
+    background: linear-gradient(135deg, #fff9fb, #fff0f5);
     border-radius: 20px;
+    padding: 30px;
+    margin: 30px 0;
+    border: 1px solid rgba(255, 184, 198, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.connection-container::before {
+    content: '💫';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    opacity: 0.5;
+}
+
+.connection-message {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #666;
     margin: 20px 0;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    transform: scale(0.8);
-    opacity: 0;
-    transition: all 0.8s ease;
+    padding: 18px;
+    background: white;
+    border-radius: 15px;
+    border: 1px dashed var(--warm-pink);
 }
 
-img.show, video.show {
-    transform: scale(1);
-    opacity: 1;
+.connection-question {
+    font-style: italic;
+    color: #ff6b93;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 107, 147, 0.2);
 }
 
-video {
-    outline: none;
+/* Heartbeat animation */
+.heartbeat {
+    font-size: 50px;
+    margin: 25px 0;
+    display: inline-block;
+    animation: gentleHeartbeat 2s infinite;
 }
 
-.tap {
+@keyframes gentleHeartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+/* Thoughtful question */
+.question-box {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    margin: 25px 0;
+    box-shadow: 0 5px 20px rgba(255, 182, 193, 0.1);
+    border: 1px solid rgba(255, 184, 198, 0.2);
+}
+
+.question {
+    font-size: 1.1rem;
+    color: #ff6b93;
+    margin-bottom: 15px;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
     margin-top: 20px;
-    font-size: 14px;
-    color: #e91e63;
+}
+
+.option-btn {
+    padding: 12px 25px;
+    border: 2px solid var(--warm-pink);
+    background: white;
+    color: #ff6b93;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.option-btn:hover {
+    background: var(--soft-pink);
+    transform: translateY(-2px);
+}
+
+.option-btn.selected {
+    background: var(--warm-pink);
+    color: white;
+}
+
+/* Final gentle message */
+.final-note {
+    font-size: 1rem;
+    color: #777;
+    margin-top: 30px;
+    padding: 20px;
+    font-style: italic;
+    border-top: 1px solid rgba(255, 184, 198, 0.3);
+}
+
+/* Progress indicator */
+.progress {
+    margin-top: 25px;
+    color: #ff6b93;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Cursor */
+.click-cursor {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff6b93;
+    font-size: 0.9rem;
     animation: blink 2s infinite;
-    font-weight: bold;
 }
 
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
 }
-
-/* Confetti */
-.confetti {
-    position: fixed;
-    width: 15px;
-    height: 15px;
-    background: #ff4081;
-    animation: confettiFall 5s linear infinite;
-    z-index: 2;
-}
-
-@keyframes confettiFall {
-    0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-    }
-}
-
-/* Glow effect for final message */
-.glow {
-    animation: glow 2s ease-in-out infinite alternate;
-    color: #ff4081;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e91e63; }
-    to { text-shadow: 0 0 20px #fff, 0 0 30px #ff4081, 0 0 40px #ff4081; }
-}
-
-/* Celebration animation */
-.celebration {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 100px;
-    z-index: 10;
-    animation: celebrate 1s ease-out;
-    pointer-events: none;
-}
-
-@keyframes celebrate {
-    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
-}
 </style>
 </head>
 
 <body>
-<!-- Floating hearts background -->
-<div class="hearts-bg" id="heartsBg"></div>
+<!-- Background sparkles -->
+<div class="bg-sparkle" style="top:10%; left:5%;">✨</div>
+<div class="bg-sparkle" style="top:20%; right:10%;">🌸</div>
+<div class="bg-sparkle" style="top:70%; left:10%;">💫</div>
+<div class="bg-sparkle" style="top:85%; right:5%;">🌙</div>
 
-<div class="card" id="card" onclick="nextStep()">
-    <h1 id="title">🎁 Tap for a Surprise! 🎁</h1>
+<div class="container">
+    <div class="card" id="card">
+        <h1 class="title" id="title">For Theju's Special Day ✨</h1>
 
-    <p id="m1" class="hidden">
-        🎉 Happy Birthday <b class="glow">Thejuuuuu</b> 🎉<br>
-        Today feels extra special because it's *your* day.
-    </p>
+        <!-- Initial messages -->
+        <div class="message hidden" id="m1">
+            Watching you celebrate today made me realize something simple yet beautiful...
+        </div>
 
-    <p id="m2" class="hidden">
-        Your eyes have a sparkle that speaks louder than words —<br>
-        one glance, and everything feels right ✨
-    </p>
+        <div class="message hidden" id="m2">
+            There's a genuine light that comes from you when you're happy. 
+            It's not something you put on — it's just you being you.
+        </div>
 
-    <p id="m3" class="hidden">
-        And your cuteness…<br>
-        it's natural, effortless, and honestly addictive 🌸
-    </p>
+        <!-- First Image -->
+        <div class="media-container hidden" id="img1">
+            <img src="IMG_2247.jpeg" alt="A happy moment">
+        </div>
 
-    <p id="m4" class="hidden">
-        When you dance,<br>
-        the beat listens to *you* —<br>
-        powerful moves, fearless vibe, pure fire 🔥💃
-    </p>
+        <div class="message hidden" id="m3">
+            Moments like these are rare. They're the kind you want to remember, 
+            to hold onto because they feel real and true.
+        </div>
 
-    <div id="heart" class="heart hidden">💖</div>
+        <!-- Second Image -->
+        <div class="media-container hidden" id="img2">
+            <img src="IMG_2808.jpeg" alt="Another beautiful moment">
+        </div>
 
-    <!-- Images and Videos -->
-    <img id="img1" class="hidden" src="IMG_2247.jpeg" alt="Birthday Photo 1">
-    <img id="img2" class="hidden" src="IMG_2808.jpeg" alt="Birthday Photo 2">
-    
-    <video id="vid1" class="hidden" controls autoplay muted>
-        <source src="688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4" type="video/mp4">
-    </video>
-    
-    <video id="vid2" class="hidden" controls autoplay muted>
-        <source src="9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4" type="video/mp4">
-    </video>
+        <div class="message hidden" id="m4">
+            I admire how you carry yourself — with grace and a quiet strength 
+            that doesn't need to announce itself.
+        </div>
 
-    <p id="m5" class="hidden">
-        May this year bring you confidence, success,<br>
-        and stages big enough for your talent ✨
-    </p>
+        <!-- First Video -->
+        <div class="media-container hidden" id="vid1">
+            <video controls playsinline>
+                <source src="688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4" type="video/mp4">
+            </video>
+        </div>
 
-    <p id="m6" class="hidden">
-        From someone who truly admires you, Thejuuuuu 💕
-    </p>
+        <!-- Second Video -->
+        <div class="media-container hidden" id="vid2">
+            <video controls playsinline>
+                <source src="9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4" type="video/mp4">
+            </video>
+        </div>
 
-    <div class="tap">✨ Keep tapping! ✨</div>
+        <!-- Connection Section (After Videos) -->
+        <div class="connection-container hidden" id="connection">
+            <div class="heartbeat">💖</div>
+            
+            <div class="connection-message">
+                Seeing you in these moments... it made me want to know more about you.
+                Not just the celebrations, but the quiet moments too.
+            </div>
+
+            <div class="connection-message">
+                There's a curiosity here — about your thoughts, your dreams, 
+                the little things that make you smile when no one's watching.
+            </div>
+
+            <div class="question-box hidden" id="questionBox">
+                <div class="question">
+                    If we were to talk more, what would you want to share first?
+                </div>
+                <div class="options">
+                    <button class="option-btn" onclick="selectOption(1)">Your passions</button>
+                    <button class="option-btn" onclick="selectOption(2)">Your stories</button>
+                    <button class="option-btn" onclick="selectOption(3)">Your thoughts</button>
+                </div>
+            </div>
+
+            <div class="connection-question hidden" id="gentleAsk">
+                Would you be open to a conversation sometime?<br>
+                No pressure, just two people getting to know each other.
+            </div>
+        </div>
+
+        <!-- Final Section -->
+        <div class="message hidden final-note" id="finalNote">
+            Whatever happens next, I'm grateful I got to witness your special day.<br>
+            You deserve all the happiness in the world. 💫
+        </div>
+
+        <div class="progress" id="progress">Tap to continue...</div>
+        <div class="click-cursor" id="cursor">▼</div>
+    </div>
 </div>
 
 <script>
 let step = 0;
-const card = document.getElementById('card');
-const heartsBg = document.getElementById('heartsBg');
+const totalSteps = 11; // Total number of reveal steps
 
-// Create floating hearts in background
-for (let i = 0; i < 20; i++) {
-    const heart = document.createElement('div');
-    heart.classList.add('heart-bg');
-    heart.innerHTML = '💖';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.animationDelay = Math.random() * 5 + 's';
-    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-    heartsBg.appendChild(heart);
-}
+// All elements in reveal order
+const elements = [
+    'm1', 'm2', 'img1', 'm3', 'img2', 
+    'm4', 'vid1', 'vid2', 'connection',
+    'questionBox', 'gentleAsk', 'finalNote'
+];
+
+// Video elements for auto-play
+const videoElements = ['vid1', 'vid2'];
 
 function nextStep() {
-    step++;
-    
-    // Card animation
-    if (step === 1) {
-        document.getElementById('title').innerHTML = "🎂 Happy Birthday Thejuuuuu! 🎂";
-        card.classList.add('open');
-        createConfetti();
+    // Update title on first click
+    if (step === 0) {
+        document.getElementById('title').innerHTML = "A Message For You 🌸";
+        document.getElementById('progress').innerHTML = "1/" + totalSteps;
     }
-    
-    // Reveal messages with animation
-    const elements = [
-        'm1', 'm2', 'm3', 'm4', 'heart', 
-        'img1', 'img2', 'vid1', 'vid2', 
-        'm5', 'm6'
-    ];
-    
-    if (step <= elements.length + 1) {
-        const elemId = elements[step - 2];
-        if (elemId) {
-            const elem = document.getElementById(elemId);
-            elem.classList.remove('hidden');
+
+    // Reveal current element
+    if (step < elements.length) {
+        const elementId = elements[step];
+        const element = document.getElementById(elementId);
+        
+        if (element) {
+            // Remove hidden class
+            element.classList.remove('hidden');
             
-            // Add animation class
+            // Add visible class with delay for animation
             setTimeout(() => {
-                if (elem.classList.contains('heart')) {
-                    elem.style.opacity = '1';
-                } else if (elem.tagName === 'P') {
-                    elem.classList.add('show');
-                } else if (elem.tagName === 'IMG' || elem.tagName === 'VIDEO') {
-                    elem.classList.add('show');
+                element.classList.add('visible');
+                
+                // Special handling for different elements
+                if (element.classList.contains('media-container')) {
+                    element.classList.add('media-reveal');
+                    
+                    // Auto-play videos
+                    if (videoElements.includes(elementId)) {
+                        setTimeout(() => {
+                            const video = element.querySelector('video');
+                            if (video) {
+                                video.play().catch(e => {
+                                    console.log("Video play failed:", e);
+                                    // If autoplay fails, show play button
+                                    video.controls = true;
+                                });
+                            }
+                        }, 500);
+                    }
                 }
-            }, 50);
+                
+                // After videos play, show connection section
+                if (elementId === 'vid2') {
+                    setTimeout(() => {
+                        // Auto-advance to connection after video plays for a bit
+                        if (step === elements.indexOf('vid2')) {
+                            setTimeout(() => {
+                                step++;
+                                nextStep();
+                            }, 3000); // Wait 3 seconds after video starts
+                        }
+                    }, 1000);
+                }
+            }, 100);
+        }
+        
+        step++;
+        
+        // Update progress
+        document.getElementById('progress').innerHTML = 
+            Math.min(step + 1, totalSteps) + "/" + totalSteps;
             
-            // Play videos when shown
-            if (elemId === 'vid1' || elemId === 'vid2') {
-                setTimeout(() => {
-                    elem.play();
-                }, 300);
-            }
-            
-            // Celebration effects
-            if (step === 6) { // When heart appears
-                createConfetti();
-                celebrate();
-            }
-            
-            if (step === elements.length + 1) { // Final step
-                celebrate();
-                document.querySelector('.tap').innerHTML = "🎉 Happy Birthday! 🎉";
-                document.querySelector('.tap').classList.add('glow');
-            }
+        // Update cursor
+        if (step >= elements.length - 2) {
+            document.getElementById('cursor').style.opacity = '0.3';
         }
     }
-}
-
-function createConfetti() {
-    for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.backgroundColor = [
-            '#ff4081', '#e91e63', '#ff9800', '#4CAF50', '#2196F3'
-        ][Math.floor(Math.random() * 5)];
-        confetti.style.width = Math.random() * 10 + 5 + 'px';
-        confetti.style.height = Math.random() * 10 + 5 + 'px';
-        confetti.style.animationDelay = Math.random() * 2 + 's';
-        document.body.appendChild(confetti);
-        
-        // Remove after animation
-        setTimeout(() => {
-            confetti.remove();
-        }, 5000);
+    
+    // Hide cursor when done
+    if (step >= elements.length) {
+        document.getElementById('cursor').style.display = 'none';
+        document.getElementById('progress').innerHTML = "Thank you for watching 💖";
     }
 }
 
-function celebrate() {
-    const celebration = document.createElement('div');
-    celebration.classList.add('celebration');
-    celebration.innerHTML = '🎉';
-    document.body.appendChild(celebration);
+// Option selection in question box
+function selectOption(optionNum) {
+    // Remove selection from all buttons
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.classList.remove('selected');
+    });
     
+    // Add selection to clicked button
+    event.target.classList.add('selected');
+    
+    // Responses based on selection
+    const responses = [
+        "That's beautiful. I'd love to hear about what moves you.",
+        "Every story matters. I'm here to listen.",
+        "The way you think is something special. I'd value that."
+    ];
+    
+    // Show gentle response
     setTimeout(() => {
-        celebration.remove();
-    }, 1000);
+        const questionBox = document.getElementById('questionBox');
+        questionBox.innerHTML = `
+            <div class="connection-message">
+                ${responses[optionNum - 1]}
+                <div style="margin-top: 15px; color: #ff6b93; font-size: 0.9rem;">
+                    ~ A genuine thought from someone who noticed
+                </div>
+            </div>
+        `;
+        
+        // Show the gentle ask after response
+        setTimeout(() => {
+            document.getElementById('gentleAsk').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('gentleAsk').classList.add('visible');
+            }, 100);
+        }, 1500);
+    }, 500);
 }
 
-// Add click sound effect (optional)
-card.addEventListener('click', () => {
-    const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==');
-    audio.volume = 0.3;
-    audio.play().catch(e => console.log("Audio play failed:", e));
+// Auto-play videos when they come into view
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const video = entry.target.querySelector('video');
+            if (video && !video.played) {
+                video.play().catch(e => {
+                    // Autoplay failed, ensure controls are visible
+                    video.controls = true;
+                });
+            }
+        }
+    });
+}, {
+    threshold: 0.5
 });
+
+// Initialize video observer
+document.querySelectorAll('.media-container').forEach(container => {
+    observer.observe(container);
+});
+
+// Handle card click
+document.getElementById('card').addEventListener('click', nextStep);
+
+// Add gentle sound on click
+document.getElementById('card').addEventListener('click', () => {
+    // Create subtle click sound
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        // Gentle bell-like sound
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(784, audioContext.currentTime); // G5
+        oscillator.frequency.exponentialRampToValueAtTime(523.25, audioContext.currentTime + 0.15); // C5
+        
+        gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.2);
+    } catch (e) {
+        // Sound not supported
+    }
+});
+
+// Initialize background sparkles
+function createSparkles() {
+    const container = document.body;
+    const sparkles = ['✨', '🌸', '💫', '🌙', '⭐', '🔆'];
+    
+    for (let i = 0; i < 12; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'bg-sparkle';
+        sparkle.innerHTML = sparkles[i % sparkles.length];
+        sparkle.style.left = `${Math.random() * 100}%`;
+        sparkle.style.top = `${Math.random() * 100}%`;
+        sparkle.style.animationDelay = `${Math.random() * 5}s`;
+        sparkle.style.fontSize = `${15 + Math.random() * 15}px`;
+        container.appendChild(sparkle);
+    }
+}
+
+createSparkles();
 </script>
 </body>
 </html>
