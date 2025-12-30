@@ -1,14 +1,17 @@
 # Birthday
 
-##photos
+## Birthday Videos
 
-![photo](IMG_2808.jpeg)
-![Photo](IMG_2247.jpeg)
+### Video 1
+[Watch Birthday Video 1](688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4)
 
-##Videos 
+### Video 2  
+[Watch Birthday Video 2](9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4)
 
-![its you](688F37B5-9BD8-46EA-8F00-D23091552DFF.mp4)
-![always you](9E6C32C9-5289-4FA2-9089-86483AEE79E1.mp4)
+## Birthday Photos
 
-## photo gallery
-Here are the some moments with you
+![Birthday Photo 1](IMG_2247.jpeg)
+![Birthday Photo 2](IMG_2808.jpeg)
+
+---
+*Celebrating a special day!*
